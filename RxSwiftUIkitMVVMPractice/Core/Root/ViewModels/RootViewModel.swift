@@ -6,59 +6,63 @@
 //
 
 import Foundation
-import Combine
 import RxSwift
+import RxCocoa
 
-class RootViewModel {
+struct RootViewModel {
     
-    @Published var winners = [UpbitTicker]()
-    @Published var lossers = [UpbitTicker]()
-    @Published var volume = [UpbitTicker]()
+    let winnersRelay = BehaviorRelay<[TickerViewModel]>(value: [])
+    let lossersRelay = BehaviorRelay<[TickerViewModel]>(value: [])
+    let volumeRelay = BehaviorRelay<[TickerViewModel]>(value: [])
     
-    @Published var winnerList = [TickerViewModel]()
+    var winners: [TickerViewModel] { winnersRelay.value }
+    var lossers: [TickerViewModel] { lossersRelay.value }
+    var volume: [TickerViewModel] { volumeRelay.value }
     
     private let dataService = UpbitRestApiService.shared
-    private var cancellables = Set<AnyCancellable>()
+    private let disposeBag = DisposeBag()
     
     init() {
         fetchTickersFromRestApi()
     }
     
     func fetchTickersFromRestApi() {
-        dataService.$tickers
-            .sink { tickers in
+        dataService.tickersSubject
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { tickers in
                 Task {
                     await self.updateWinners(tickers: tickers)
                     await self.updateLossers(tickers: tickers)
                     await self.updateVolume(tickers: tickers)
-                    self.winnerList = self.winners.map { TickerViewModel(ticker: $0) }
-                    print(self.winnerList)
                 }
-            }
-            .store(in: &cancellables)
+            })
+            .disposed(by: disposeBag)
     }
     
     private func updateWinners(tickers: [String: UpbitTicker]) async {
         let newArray = tickers.values.sorted(by: { $0.signedChangeRate > $1.signedChangeRate })
+        let viewModels = newArray.map { TickerViewModel(ticker: $0) }
         
         await MainActor.run {
-            self.winners = newArray
+            self.winnersRelay.accept(viewModels)
         }
     }
     
     private func updateLossers(tickers: [String: UpbitTicker]) async {
         let newArray = tickers.values.sorted(by: { $0.signedChangeRate < $1.signedChangeRate })
+        let viewModels = newArray.map { TickerViewModel(ticker: $0) }
         
         await MainActor.run {
-            self.lossers = newArray
+            self.lossersRelay.accept(viewModels)
         }
     }
     
     private func updateVolume(tickers: [String: UpbitTicker]) async {
         let newArray = tickers.values.sorted(by: { $0.accTradePrice24H > $1.accTradePrice24H })
+        let viewModels = newArray.map { TickerViewModel(ticker: $0) }
         
         await MainActor.run {
-            self.volume = newArray
+            self.volumeRelay.accept(viewModels)
         }
     }
 }

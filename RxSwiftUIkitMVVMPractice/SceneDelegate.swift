@@ -18,10 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: scene)
         let coordinator = Coordinator(window: self.window!)
         coordinator.start()
-        Task {
-            await UpbitRestApiService.shared.fetchCoins()
-            print("코인 가져오기 완료")
-        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

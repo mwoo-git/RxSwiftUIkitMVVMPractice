@@ -6,13 +6,17 @@
 //
 
 import Foundation
+import RxCocoa
 
 class UpbitRestApiService {
     
     static let shared = UpbitRestApiService()
     
-    @Published var coins = [UpbitCoin]()
-    @Published var tickers = [String: UpbitTicker]()
+    let coinsSubject = BehaviorRelay<[UpbitCoin]>(value: [])
+    var coins: [UpbitCoin] { coinsSubject.value }
+
+    let tickersSubject = BehaviorRelay<[String: UpbitTicker]>(value: [:])
+    var tickers: [String: UpbitTicker] { tickersSubject.value }
     
     private let baseUrl = "https://api.upbit.com/v1"
     
@@ -31,7 +35,7 @@ class UpbitRestApiService {
                 return
             }
             let coins = try JSONDecoder().decode([UpbitCoin].self, from: data).filter { $0.market.hasPrefix("KRW") }
-            self.coins = coins
+            self.coinsSubject.accept(coins)
             await fetchTickers()
         } catch {
             print("Error fetching upbit coins: \(error)")
@@ -58,7 +62,7 @@ class UpbitRestApiService {
                                          signedChangeRate: tickerRestAPI.signedChangeRate)
                 tickersDict[ticker.market] = ticker
             }
-            self.tickers = tickersDict
+            self.tickersSubject.accept(tickersDict)
         } catch {
             print("Error fetching upbit tickers: \(error)")
         }

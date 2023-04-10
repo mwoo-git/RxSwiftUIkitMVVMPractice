@@ -11,13 +11,7 @@ class TickerCell: UICollectionViewCell {
     // MARK: - Properties
     
     private var vm: TickerViewModel? {
-        didSet {
-            guard let vm = vm else { return }
-            symbolLabel.text = vm.symbol
-            priceLabel.text = vm.price
-            changeRateLabel.text = vm.changeRate
-            volumeLabel.text = vm.volume
-        }
+        didSet { configureLabels() }
     }
     
     private let symbolLabel: UILabel = {
@@ -60,7 +54,7 @@ class TickerCell: UICollectionViewCell {
     // MARK: - Configures
     
     func configureUI() {
-        backgroundColor = .blue
+        backgroundColor = .white
         
         addSubview(symbolLabel)
         symbolLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 10, paddingLeft: 20)
@@ -69,15 +63,24 @@ class TickerCell: UICollectionViewCell {
         priceLabel.anchor(top: symbolLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 20)
         
         addSubview(changeRateLabel)
-        changeRateLabel.anchor(top: symbolLabel.topAnchor, right: rightAnchor, paddingTop: 10, paddingRight: 20)
+        changeRateLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 10, paddingRight: 20)
         
         addSubview(volumeLabel)
-        volumeLabel.anchor(top: priceLabel.topAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 20)
+        volumeLabel.anchor(top: changeRateLabel.bottomAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 20)
     }
     
     // MARK: - Helpers
     
     func configure(with vm: TickerViewModel) {
         self.vm = vm
+    }
+    
+    func configureLabels() {
+        guard let vm = vm else { return }
+        
+        symbolLabel.text = vm.symbol
+        priceLabel.text = vm.price
+        changeRateLabel.text = vm.changeRate
+        volumeLabel.text = vm.volume
     }
 }
