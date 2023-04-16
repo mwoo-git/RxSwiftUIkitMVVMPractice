@@ -14,28 +14,28 @@ class TickerCell: UICollectionViewCell {
         didSet { configureLabels() }
     }
     
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        return label
+    }()
+    
     private let symbolLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 13)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .black
         return label
     }()
     
     private let changeRateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
-    }()
-    
-    private let volumeLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
     }()
     
@@ -56,17 +56,17 @@ class TickerCell: UICollectionViewCell {
     func configureUI() {
         backgroundColor = .white
         
-        addSubview(symbolLabel)
-        symbolLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 10, paddingLeft: 20)
+        addSubview(nameLabel)
+        nameLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 10, paddingLeft: 20)
         
-        addSubview(priceLabel)
-        priceLabel.anchor(top: symbolLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 20)
+        addSubview(symbolLabel)
+        symbolLabel.anchor(top: nameLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 20)
         
         addSubview(changeRateLabel)
         changeRateLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 10, paddingRight: 20)
         
-        addSubview(volumeLabel)
-        volumeLabel.anchor(top: changeRateLabel.bottomAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 20)
+        addSubview(priceLabel)
+        priceLabel.anchor(top: changeRateLabel.bottomAnchor, right: rightAnchor, paddingTop: 8, paddingRight: 20)
     }
     
     // MARK: - Helpers
@@ -78,9 +78,9 @@ class TickerCell: UICollectionViewCell {
     func configureLabels() {
         guard let vm = vm else { return }
         
+        nameLabel.text = vm.koreanName
         symbolLabel.text = vm.symbol
         priceLabel.text = vm.price
         changeRateLabel.text = vm.changeRate
-        volumeLabel.text = vm.volume
     }
 }

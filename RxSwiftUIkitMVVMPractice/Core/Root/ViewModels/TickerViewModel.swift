@@ -30,6 +30,11 @@ struct TickerViewModel {
         return ticker.symbol
     }
     
+    var koreanName: String {
+        let coin = UpbitRestApiService.shared.coins.first(where: { $0.market == market })
+        return coin?.korean_name ?? symbol
+    }
+    
     init(ticker: UpbitTicker) {
         self.ticker = ticker
     }

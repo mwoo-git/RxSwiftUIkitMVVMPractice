@@ -8,7 +8,8 @@
 import UIKit
 import RxSwift
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "CoinCell"
+private let headerIdentifier = "CoinHeader"
 
 class RootViewController: UIViewController {
     
@@ -23,6 +24,7 @@ class RootViewController: UIViewController {
         cv.dataSource = self
         cv.backgroundColor = .white
         cv.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        cv.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         return cv
     }()
     
@@ -48,17 +50,19 @@ class RootViewController: UIViewController {
     // MARK: - Configures
     
     func configureUI() {
+        navigationItem.title = "거래소"
         view.backgroundColor = .white
         
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
+    
+    // MARK: - Helpers
 }
 
 extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(vm.winners.count)
         return vm.volume.count
     }
     
@@ -70,7 +74,16 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! RootHeader
+        return header
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        return CGSize(width: view.frame.width, height: 60)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 200)
     }
 }

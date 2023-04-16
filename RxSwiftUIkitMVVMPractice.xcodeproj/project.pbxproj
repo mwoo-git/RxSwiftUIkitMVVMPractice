@@ -25,6 +25,7 @@
 		731241C629DD8EC30032F6F8 /* TickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241C529DD8EC30032F6F8 /* TickerCell.swift */; };
 		731241C829DD91A10032F6F8 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241C729DD91A10032F6F8 /* TickerViewModel.swift */; };
 		731241CB29DD9C5F0032F6F8 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241CA29DD9C5F0032F6F8 /* UIView.swift */; };
+		736AE03F29EAF094003FC7D1 /* RootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE03E29EAF094003FC7D1 /* RootHeader.swift */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		731241C529DD8EC30032F6F8 /* TickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerCell.swift; sourceTree = "<group>"; };
 		731241C729DD91A10032F6F8 /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
 		731241CA29DD9C5F0032F6F8 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		736AE03E29EAF094003FC7D1 /* RootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHeader.swift; sourceTree = "<group>"; };
 		8A3C5F49225026F06F928E8A /* Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		731241B429DD64740032F6F8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				736AE04029EAF47E003FC7D1 /* Components */,
 				731241BF29DD70660032F6F8 /* Root */,
 			);
 			path = Core;
@@ -217,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				731241C529DD8EC30032F6F8 /* TickerCell.swift */,
+				736AE03E29EAF094003FC7D1 /* RootHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,6 +231,13 @@
 				731241CA29DD9C5F0032F6F8 /* UIView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		736AE04029EAF47E003FC7D1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BB86B1BC7257E57F4BDB6B4F /* Pods */ = {
@@ -492,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				731241CB29DD9C5F0032F6F8 /* UIView.swift in Sources */,
+				736AE03F29EAF094003FC7D1 /* RootHeader.swift in Sources */,
 				731241B829DD656B0032F6F8 /* Coordinator.swift in Sources */,
 				731241C329DD70BB0032F6F8 /* RootViewModel.swift in Sources */,
 				731241BE29DD6BB50032F6F8 /* UpbitRestApiService.swift in Sources */,
