@@ -21,17 +21,6 @@ class RootViewController: UIViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     
-    private let abc: UITextField = {
-        let tf = UITextField()
-        tf.borderStyle = .none
-        tf.textColor = .black
-        tf.keyboardAppearance = .dark
-        tf.backgroundColor = .white
-        tf.setHeight(50)
-        tf.placeholder = "코인명/심볼 검색"
-        return tf
-    }()
-    
     private var inSearchMode: Bool {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
