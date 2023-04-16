@@ -10,20 +10,60 @@ import UIKit
 class RootHeader: UICollectionReusableView {
     // MARK: - Properties
     
-    private let searchTextField: UITextField = {
-        let tf = UITextField()
-        let spacer = UIView()
-        spacer.setDimensions(height: 50, width: 12)
-        tf.leftView = spacer
-        tf.leftViewMode = .always
-        
-        tf.borderStyle = .none
-        tf.textColor = .black
-        tf.keyboardAppearance = .dark
-        tf.backgroundColor = .white
-        tf.setHeight(50)
-        tf.placeholder = "코인명/심볼 검색"
-        return tf
+    private let totalBuyTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "총 매수"
+        return label
+    }()
+    
+    private let totalBuylabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "1,148,426"
+        return label
+    }()
+    
+    private let totalValueTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "총 평가"
+        return label
+    }()
+    
+    private let totalValueLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "1,354,844"
+        return label
+    }()
+    
+    private let pnlTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "평가손익"
+        return label
+    }()
+    
+    private let pnlLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "206,251"
+        return label
+    }()
+    
+    private let returnRateTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "수익률"
+        return label
+    }()
+    
+    private let returnRateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.text = "17.91%"
+        return label
     }()
     
     // MARK: - Lifecycles
@@ -42,13 +82,7 @@ class RootHeader: UICollectionReusableView {
     func configureUI() {
         backgroundColor = .white
         
-        addSubview(searchTextField)
-        searchTextField.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, paddingLeft: 20, paddingRight: 20)
         
-        let bottomDivider = UIView()
-        bottomDivider.backgroundColor = .lightGray
-        addSubview(bottomDivider)
-        bottomDivider.anchor(top: searchTextField.bottomAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
     }
     
     // MARK: - Actions

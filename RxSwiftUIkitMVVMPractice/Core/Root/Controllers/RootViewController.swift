@@ -16,7 +16,25 @@ class RootViewController: UIViewController {
     // MARK: Properties
     
     private var vm = RootViewModel()
+    
     private let disposeBag = DisposeBag()
+    
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private let abc: UITextField = {
+        let tf = UITextField()
+        tf.borderStyle = .none
+        tf.textColor = .black
+        tf.keyboardAppearance = .dark
+        tf.backgroundColor = .white
+        tf.setHeight(50)
+        tf.placeholder = "코인명/심볼 검색"
+        return tf
+    }()
+    
+    private var inSearchMode: Bool {
+        return searchController.isActive && !searchController.searchBar.text!.isEmpty
+    }
     
     private lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -25,6 +43,7 @@ class RootViewController: UIViewController {
         cv.backgroundColor = .white
         cv.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         cv.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        cv.keyboardDismissMode = .onDrag
         return cv
     }()
     
@@ -33,6 +52,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureSerachController()
         configureUI()
         fetchTickers()
     }
@@ -58,18 +78,29 @@ class RootViewController: UIViewController {
     }
     
     // MARK: - Helpers
+    
+    func configureSerachController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "코인명/심볼 검색"
+        navigationItem.searchController = searchController
+        definesPresentationContext = false
+        searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
+    }
 }
 
 extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vm.volume.count
+        return inSearchMode ? vm.filterdCoins.count : vm.volume.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TickerCell
+        let coin = inSearchMode ? vm.filterdCoins[indexPath.row] : vm.volume[indexPath.row]
         
-        cell.configure(with: vm.volume[indexPath.row])
+        cell.configure(with: coin)
         
         return cell
     }
@@ -84,6 +115,25 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        return CGSize(width: view.frame.width, height: 0)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard !inSearchMode else { return }
+        searchController.dismiss(animated: false)
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+
+extension RootViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
+        let coins = vm.volume.filter({
+            $0.symbol.lowercased().contains(searchText) || $0.koreanName.contains(searchText)
+        })
+        vm.filterdRelay.accept(coins)
+        
+        self.collectionView.reloadData()
     }
 }

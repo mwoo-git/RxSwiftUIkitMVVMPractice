@@ -14,10 +14,12 @@ struct RootViewModel {
     let winnersRelay = BehaviorRelay<[TickerViewModel]>(value: [])
     let lossersRelay = BehaviorRelay<[TickerViewModel]>(value: [])
     let volumeRelay = BehaviorRelay<[TickerViewModel]>(value: [])
+    let filterdRelay = BehaviorRelay<[TickerViewModel]>(value: [])
     
     var winners: [TickerViewModel] { winnersRelay.value }
     var lossers: [TickerViewModel] { lossersRelay.value }
     var volume: [TickerViewModel] { volumeRelay.value }
+    var filterdCoins: [TickerViewModel] { filterdRelay.value }
     
     private let dataService = UpbitRestApiService.shared
     private let disposeBag = DisposeBag()
