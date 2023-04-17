@@ -43,12 +43,12 @@ class RootViewController: UIViewController {
         
         configureSerachController()
         configureUI()
-        fetchTickers()
+        addSubscribers()
     }
     
     // MARK: - API
     
-    func fetchTickers() {
+    func addSubscribers() {
         vm.volumeRelay
             .subscribe(onNext: { [weak self] _ in
                 self?.collectionView.reloadData()
