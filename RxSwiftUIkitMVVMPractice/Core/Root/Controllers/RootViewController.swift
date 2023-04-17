@@ -119,7 +119,7 @@ extension RootViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         let coins = vm.volume.filter({
-            $0.symbol.lowercased().contains(searchText) || $0.koreanName.contains(searchText)
+            $0.symbol.lowercased().contains(searchText) || $0.koreanName.contains(searchText) || $0.englishName.lowercased().contains(searchText)
         })
         vm.filterdRelay.accept(coins)
         
