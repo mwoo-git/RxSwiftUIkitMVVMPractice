@@ -79,8 +79,9 @@ class RootViewController: UIViewController {
     }
 }
 
-extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+// MARK: - UICollectionViewDataSource
+
+extension RootViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return inSearchMode ? vm.filterdCoins.count : vm.volume.count
     }
@@ -98,18 +99,26 @@ extension RootViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! RootHeader
         return header
     }
-    
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension RootViewController: UICollectionViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard !inSearchMode else { return }
+        searchController.dismiss(animated: false)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension RootViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 0)
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard !inSearchMode else { return }
-        searchController.dismiss(animated: false)
     }
 }
 
