@@ -17,7 +17,7 @@ class ChatCell: UITableViewCell {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.backgroundColor = .lightGray
-        iv.image = UIImage(named: "venom-7")
+        iv.image = UIImage(named: "bitcoin")
         return iv
     }()
     
@@ -63,7 +63,7 @@ class ChatCell: UITableViewCell {
         
         profileImageView.centerY(inView: self, leftAnchor: leftAnchor, paddingLeft: 12)
         
-        let stack = UIStackView(arrangedSubviews: [nameLabel, updateTimeLabel])
+        let stack = UIStackView(arrangedSubviews: [nameLabel, descriptionLabel])
         stack.axis = .vertical
         stack.spacing = 4
         stack.alignment = .leading
