@@ -11,7 +11,7 @@ import RxSwift
 private let reuseIdentifier = "CoinCell"
 private let headerIdentifier = "CoinHeader"
 
-class RootViewController: UIViewController {
+class RootController: UICollectionViewController {
     
     // MARK: Properties
     
@@ -24,17 +24,6 @@ class RootViewController: UIViewController {
     private var inSearchMode: Bool {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
-    
-    private lazy var collectionView: UICollectionView = {
-        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-        cv.delegate = self
-        cv.dataSource = self
-        cv.backgroundColor = .white
-        cv.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        cv.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
-        cv.keyboardDismissMode = .onDrag
-        return cv
-    }()
     
     // MARK: Lifecycle
     
@@ -62,6 +51,10 @@ class RootViewController: UIViewController {
         navigationItem.title = "거래소"
         view.backgroundColor = .white
         
+        collectionView.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
+        collectionView.keyboardDismissMode = .onDrag
+        
         view.addSubview(collectionView)
         collectionView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor)
     }
@@ -81,12 +74,12 @@ class RootViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension RootViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension RootController {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return inSearchMode ? vm.filterdCoins.count : vm.volume.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TickerCell
         let coin = inSearchMode ? vm.filterdCoins[indexPath.row] : vm.volume[indexPath.row]
         
@@ -95,7 +88,7 @@ extension RootViewController: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! RootHeader
         return header
     }
@@ -103,16 +96,19 @@ extension RootViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension RootViewController: UICollectionViewDelegate {
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+extension RootController {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard !inSearchMode else { return }
         searchController.dismiss(animated: false)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension RootViewController: UICollectionViewDelegateFlowLayout {
+extension RootController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 60)
     }
@@ -124,7 +120,7 @@ extension RootViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - UISearchResultsUpdating
 
-extension RootViewController: UISearchResultsUpdating {
+extension RootController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         let coins = vm.volume.filter({
