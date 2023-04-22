@@ -29,6 +29,10 @@
 		736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05B29F26075003FC7D1 /* ProfileController.swift */; };
 		736AE05E29F260D9003FC7D1 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05D29F260D9003FC7D1 /* MainTabController.swift */; };
 		736AE06029F27753003FC7D1 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05F29F27753003FC7D1 /* ChatCell.swift */; };
+		736AE06229F3C322003FC7D1 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06129F3C322003FC7D1 /* ProfileHeader.swift */; };
+		736AE06429F3C4B3003FC7D1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06329F3C4B3003FC7D1 /* ProfileViewModel.swift */; };
+		736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06529F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift */; };
+		736AE06829F3CB71003FC7D1 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06729F3CB70003FC7D1 /* ProfileCell.swift */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +82,10 @@
 		736AE05B29F26075003FC7D1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		736AE05D29F260D9003FC7D1 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		736AE05F29F27753003FC7D1 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		736AE06129F3C322003FC7D1 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		736AE06329F3C4B3003FC7D1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		736AE06529F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
+		736AE06729F3CB70003FC7D1 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		8A3C5F49225026F06F928E8A /* Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -187,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				736AE04029EAF47E003FC7D1 /* Components */,
-				731241C429DD8E870032F6F8 /* Views */,
 				731241C029DD70940032F6F8 /* Controllers */,
 				731241C129DD70A40032F6F8 /* ViewModels */,
 			);
@@ -211,15 +218,6 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		731241C429DD8E870032F6F8 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				731241C529DD8EC30032F6F8 /* TickerCell.swift */,
-				736AE03E29EAF094003FC7D1 /* RootHeader.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		731241C929DD9C4E0032F6F8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +229,8 @@
 		736AE04029EAF47E003FC7D1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				731241C529DD8EC30032F6F8 /* TickerCell.swift */,
+				736AE03E29EAF094003FC7D1 /* RootHeader.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -268,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				736AE05129F25FCB003FC7D1 /* Components */,
-				736AE05429F25FEC003FC7D1 /* Views */,
 				736AE05229F25FD7003FC7D1 /* Controllers */,
 				736AE05329F25FE2003FC7D1 /* ViewModels */,
 			);
@@ -279,7 +278,6 @@
 			isa = PBXGroup;
 			children = (
 				736AE05529F25FF2003FC7D1 /* Components */,
-				736AE05829F2600C003FC7D1 /* Views */,
 				736AE05629F25FFD003FC7D1 /* Controllers */,
 				736AE05729F26005003FC7D1 /* ViewModels */,
 			);
@@ -297,6 +295,8 @@
 		736AE05129F25FCB003FC7D1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				736AE06129F3C322003FC7D1 /* ProfileHeader.swift */,
+				736AE06729F3CB70003FC7D1 /* ProfileCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -312,20 +312,16 @@
 		736AE05329F25FE2003FC7D1 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				736AE06329F3C4B3003FC7D1 /* ProfileViewModel.swift */,
+				736AE06529F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		736AE05429F25FEC003FC7D1 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		736AE05529F25FF2003FC7D1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				736AE05F29F27753003FC7D1 /* ChatCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -343,14 +339,6 @@
 			children = (
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		736AE05829F2600C003FC7D1 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				736AE05F29F27753003FC7D1 /* ChatCell.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		BB86B1BC7257E57F4BDB6B4F /* Pods */ = {
@@ -623,11 +611,15 @@
 				736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */,
 				7312418529DD63EB0032F6F8 /* AppDelegate.swift in Sources */,
 				736AE06029F27753003FC7D1 /* ChatCell.swift in Sources */,
+				736AE06229F3C322003FC7D1 /* ProfileHeader.swift in Sources */,
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
+				736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */,
 				731241C629DD8EC30032F6F8 /* TickerCell.swift in Sources */,
 				731241C829DD91A10032F6F8 /* TickerViewModel.swift in Sources */,
 				731241BC29DD6B720032F6F8 /* Upbit.swift in Sources */,
 				731241B629DD64910032F6F8 /* RootController.swift in Sources */,
+				736AE06829F3CB71003FC7D1 /* ProfileCell.swift in Sources */,
+				736AE06429F3C4B3003FC7D1 /* ProfileViewModel.swift in Sources */,
 				736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
