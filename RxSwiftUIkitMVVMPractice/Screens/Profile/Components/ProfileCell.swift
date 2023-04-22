@@ -10,9 +10,8 @@ import UIKit
 class ProfileCell: UITableViewCell {
     // MARK: - Properties
     
-    private let sampleLabel: UILabel = {
+    private let cellLabel: UILabel = {
         let label = UILabel()
-        label.text = "임시 라벨이여요!"
         return label
     }()
     
@@ -21,9 +20,11 @@ class ProfileCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(sampleLabel)
-        sampleLabel.centerY(inView: self)
-        sampleLabel.anchor(left: leftAnchor, paddingLeft: 12)
+        accessoryType = .disclosureIndicator
+        
+        addSubview(cellLabel)
+        cellLabel.centerY(inView: self)
+        cellLabel.anchor(left: leftAnchor, paddingLeft: 12)
     }
     
     required init?(coder: NSCoder) {
@@ -31,4 +32,8 @@ class ProfileCell: UITableViewCell {
     }
     
     // MARK: - Helpers
+    
+    func configure(with label: String) {
+        cellLabel.text = label
+    }
 }
