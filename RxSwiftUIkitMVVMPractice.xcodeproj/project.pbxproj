@@ -33,6 +33,7 @@
 		736AE06429F3C4B3003FC7D1 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06329F3C4B3003FC7D1 /* ProfileViewModel.swift */; };
 		736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06529F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift */; };
 		736AE06829F3CB71003FC7D1 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE06729F3CB70003FC7D1 /* ProfileCell.swift */; };
+		737DEF1C29FA6EC5008C8EE0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 737DEF1B29FA6EC5008C8EE0 /* .gitignore */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		736AE06329F3C4B3003FC7D1 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		736AE06529F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		736AE06729F3CB70003FC7D1 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		737DEF1B29FA6EC5008C8EE0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		8A3C5F49225026F06F928E8A /* Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		7312417829DD63EB0032F6F8 = {
 			isa = PBXGroup;
 			children = (
+				737DEF1B29FA6EC5008C8EE0 /* .gitignore */,
 				7312418329DD63EB0032F6F8 /* RxSwiftUIkitMVVMPractice */,
 				7312419A29DD63EE0032F6F8 /* RxSwiftUIkitMVVMPracticeTests */,
 				731241A429DD63EE0032F6F8 /* RxSwiftUIkitMVVMPracticeUITests */,
@@ -473,6 +476,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				737DEF1C29FA6EC5008C8EE0 /* .gitignore in Resources */,
 				7312419129DD63ED0032F6F8 /* LaunchScreen.storyboard in Resources */,
 				7312418E29DD63ED0032F6F8 /* Assets.xcassets in Resources */,
 				7312418C29DD63EB0032F6F8 /* Main.storyboard in Resources */,
