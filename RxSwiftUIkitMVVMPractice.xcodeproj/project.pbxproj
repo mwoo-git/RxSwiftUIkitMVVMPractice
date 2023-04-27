@@ -41,6 +41,7 @@
 		737DEF2C29FA739C008C8EE0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 737DEF2B29FA739C008C8EE0 /* FirebaseFirestore */; };
 		737DEF2E29FA739C008C8EE0 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 737DEF2D29FA739C008C8EE0 /* FirebaseMessaging */; };
 		737DEF3029FA739C008C8EE0 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 737DEF2F29FA739C008C8EE0 /* FirebaseStorage */; };
+		737DEF3629FA9A46008C8EE0 /* SigninController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF3529FA9A46008C8EE0 /* SigninController.swift */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +97,7 @@
 		736AE06729F3CB70003FC7D1 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		737DEF1B29FA6EC5008C8EE0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		737DEF2229FA730B008C8EE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		737DEF3529FA9A46008C8EE0 /* SigninController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninController.swift; sourceTree = "<group>"; };
 		8A3C5F49225026F06F928E8A /* Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				731241BF29DD70660032F6F8 /* Root */,
 				736AE04F29F25F96003FC7D1 /* Chat */,
 				736AE04E29F25F83003FC7D1 /* Profile */,
+				737DEF3129FA99E9008C8EE0 /* Signin */,
 				736AE04D29F25F7D003FC7D1 /* Main */,
 			);
 			path = Screens;
@@ -357,6 +360,38 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		737DEF3129FA99E9008C8EE0 /* Signin */ = {
+			isa = PBXGroup;
+			children = (
+				737DEF3429FA9A1B008C8EE0 /* Components */,
+				737DEF3329FA9A12008C8EE0 /* Controllers */,
+				737DEF3229FA9A01008C8EE0 /* ViewModels */,
+			);
+			path = Signin;
+			sourceTree = "<group>";
+		};
+		737DEF3229FA9A01008C8EE0 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		737DEF3329FA9A12008C8EE0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				737DEF3529FA9A46008C8EE0 /* SigninController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		737DEF3429FA9A1B008C8EE0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		BB86B1BC7257E57F4BDB6B4F /* Pods */ = {
@@ -641,6 +676,7 @@
 				731241BE29DD6BB50032F6F8 /* UpbitRestApiService.swift in Sources */,
 				736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */,
 				7312418529DD63EB0032F6F8 /* AppDelegate.swift in Sources */,
+				737DEF3629FA9A46008C8EE0 /* SigninController.swift in Sources */,
 				736AE06029F27753003FC7D1 /* ChatCell.swift in Sources */,
 				736AE06229F3C322003FC7D1 /* ProfileHeader.swift in Sources */,
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
