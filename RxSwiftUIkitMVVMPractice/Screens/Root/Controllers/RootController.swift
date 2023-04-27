@@ -34,6 +34,7 @@ class RootController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureSortMenu()
         configureSerachController()
         configureUI()
         addSubscribers()
@@ -54,8 +55,6 @@ class RootController: UICollectionViewController {
     func configureUI() {
         navigationItem.title = "거래소"
         view.backgroundColor = .white
-        
-        configureSortMenu()
         
         collectionView.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
