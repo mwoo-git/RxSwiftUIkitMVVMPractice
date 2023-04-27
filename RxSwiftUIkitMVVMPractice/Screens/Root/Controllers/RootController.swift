@@ -25,6 +25,10 @@ class RootController: UICollectionViewController {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
     
+    private var sort = 0 {
+        didSet { collectionView.reloadData()}
+    }
+    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -51,6 +55,8 @@ class RootController: UICollectionViewController {
         navigationItem.title = "거래소"
         view.backgroundColor = .white
         
+        configureSortMenu()
+        
         collectionView.register(TickerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(RootHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         collectionView.keyboardDismissMode = .onDrag
@@ -70,6 +76,33 @@ class RootController: UICollectionViewController {
         definesPresentationContext = false
         searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
     }
+    
+    func configureSortMenu() {
+        let volumeAction = UIAction(title: "거래량") { _ in
+            guard self.sort != 0 else { return }
+            self.sort = 0
+        }
+        
+        let winnersAction = UIAction(title: "상승") { _ in
+            guard self.sort != 1 else { return }
+            self.sort = 1
+        }
+        
+        let lossersAction = UIAction(title: "하락") { _ in
+            guard self.sort != 2 else { return }
+            self.sort = 2
+        }
+        
+        let menu = UIMenu(title: "", children: [volumeAction, winnersAction, lossersAction])
+        
+        let sortButton = UIBarButtonItem(title: "정렬", style: .plain, target: self, action: nil)
+        sortButton.menu = menu
+        
+        navigationItem.leftBarButtonItem = sortButton
+        navigationItem.leftBarButtonItem?.tintColor = .systemBlue
+    }
+    
+    // MARK: - Actions
 }
 
 // MARK: - UICollectionViewDataSource
@@ -81,7 +114,10 @@ extension RootController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TickerCell
-        let coin = inSearchMode ? vm.filterdCoins[indexPath.row] : vm.volume[indexPath.row]
+        
+        let sort = sort == 0 ? vm.volume[indexPath.row] : sort == 1 ? vm.winners[indexPath.row] : vm.lossers[indexPath.row]
+        
+        let coin = inSearchMode ? vm.filterdCoins[indexPath.row] : sort
         
         cell.configure(with: coin)
         
