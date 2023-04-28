@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import Firebase
 
 private let reuseIdentifier = "CoinCell"
 private let headerIdentifier = "CoinHeader"

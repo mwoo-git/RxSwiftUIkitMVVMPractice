@@ -21,7 +21,7 @@ struct RootViewModel {
     var volume: [TickerViewModel] { volumeRelay.value }
     var filterdCoins: [TickerViewModel] { filterdRelay.value }
     
-    private let dataService = UpbitRestApiService.shared
+    private let dataService = UpbitService.shared
     private let disposeBag = DisposeBag()
     
     init() {

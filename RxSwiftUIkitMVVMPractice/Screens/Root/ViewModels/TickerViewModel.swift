@@ -31,12 +31,12 @@ struct TickerViewModel {
     }
     
     var koreanName: String {
-        let coin = UpbitRestApiService.shared.coins.first(where: { $0.market == market })
+        let coin = UpbitService.shared.coins.first(where: { $0.market == market })
         return coin?.korean_name ?? symbol
     }
     
     var englishName: String {
-        let coin = UpbitRestApiService.shared.coins.first(where: { $0.market == market })
+        let coin = UpbitService.shared.coins.first(where: { $0.market == market })
         return coin?.english_name ?? symbol
     }
     

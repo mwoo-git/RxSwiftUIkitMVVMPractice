@@ -31,10 +31,10 @@ class ProfileHeader: UITableViewHeaderFooterView {
         return label
     }()
     
-    private let phoneNumberLabel: UILabel = {
+    private let emailLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "+82 10 9650 3650"
+        label.text = "hanulbom@gmail.com"
         label.textColor = .lightGray
         return label
     }()
@@ -71,7 +71,7 @@ class ProfileHeader: UITableViewHeaderFooterView {
         nameLabel.centerX(inView: self)
         nameLabel.anchor(top: profileImageView.bottomAnchor, paddingTop: 12)
         
-        let stack = UIStackView(arrangedSubviews: [phoneNumberLabel, userIdLabel])
+        let stack = UIStackView(arrangedSubviews: [emailLabel, userIdLabel])
         stack.axis = .horizontal
         stack.spacing = 4
         

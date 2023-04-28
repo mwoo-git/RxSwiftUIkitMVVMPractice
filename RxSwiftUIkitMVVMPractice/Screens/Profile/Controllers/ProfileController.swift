@@ -102,4 +102,23 @@ extension ProfileController {
         
         return 200
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        
+        case 4:
+            makeRequestAlert(title: "로그아웃",
+                             message: "정말 로그아웃 하시겠습니까?",
+                             okTitle: "확인",
+                             cancelTitle: "취소") { okAction in
+                AuthManager.shared.requestSignOut()
+                NotificationCenter.default.post(name: NSNotification.Name("sceneRootViewToSignInViewController"), object: nil)
+
+                
+            }
+
+        default:
+            return
+        }
+    }
 }

@@ -8,9 +8,9 @@
 import Foundation
 import RxCocoa
 
-class UpbitRestApiService {
+class UpbitService {
     
-    static let shared = UpbitRestApiService()
+    static let shared = UpbitService()
     
     let coinsSubject = BehaviorRelay<[UpbitCoin]>(value: [])
     var coins: [UpbitCoin] { coinsSubject.value }
