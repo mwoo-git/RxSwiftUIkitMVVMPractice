@@ -77,7 +77,6 @@ class SigninController: UIViewController {
         view.addSubview(stack)
         stack.centerX(inView: view)
         stack.anchor(top: brandingImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 120, paddingLeft: 16, paddingRight: 16)
-        
     }
     
     // MARK: - Actions
@@ -113,7 +112,20 @@ extension SigninController: ASAuthorizationControllerDelegate, ASAuthorizationCo
         if case let appleIDCredential as ASAuthorizationAppleIDCredential = authorization.credential {
             guard let appleIDToken = appleIDCredential.identityToken else { return }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
-            vm.appleSignInEventOccurred(withTokenId: idTokenString)
+            Task {
+                let signin = await vm.appleSignin(withTokenId: idTokenString)
+                switch signin {
+                case .didFirstSignInWithApple:
+                    print("애플 로그인이 처음이에요")
+                    self.delegate?.authenticationComlete()
+                    self.dismiss(animated: true, completion: nil)
+                case .didAlreadySignInWithApple:
+                    self.delegate?.authenticationComlete()
+                    self.dismiss(animated: true, completion: nil)
+                case .didFailToSignInWithApple:
+                    print("DEBUG: Failed to didCompleteWithAuthorization")
+                }
+            }
         }
     }
 }

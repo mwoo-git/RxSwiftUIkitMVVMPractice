@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let cellIdentifier = "ProfileCell"
 private let headerIdentifier = "ProfileHeader"
@@ -48,6 +49,19 @@ class ProfileController: UITableViewController {
     
     @objc func handleEditProfile() {
         print("편집 눌렀습니다.")
+    }
+    
+    func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            let controller = SigninController()
+            controller.delegate = self.tabBarController as? MainTabController
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        } catch {
+            print("DEBUG: Failed to sign out")
+        }
     }
 }
 
@@ -104,21 +118,41 @@ extension ProfileController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        
-        case 4:
-            makeRequestAlert(title: "로그아웃",
-                             message: "정말 로그아웃 하시겠습니까?",
-                             okTitle: "확인",
-                             cancelTitle: "취소") { okAction in
-                AuthManager.shared.requestSignOut()
-                NotificationCenter.default.post(name: NSNotification.Name("sceneRootViewToSignInViewController"), object: nil)
-
+        switch indexPath.section {
+        case 2:
+            switch indexPath.row {
+            case 0:
+                makeRequestAlert(title: "로그아웃",
+                                 message: "정말 로그아웃 하시겠습니까?",
+                                 okTitle: "확인",
+                                 cancelTitle: "취소") { okAction in
+                    self.handleLogout()
+                }
+            case 1:
+                guard let currentUser = Auth.auth().currentUser else { return }
                 
+                makeRequestAlert(title: "회원탈퇴",
+                                 message: "정말 회원탈퇴 하시겠습니까?",
+                                 okTitle: "확인",
+                                 cancelTitle: "취소") { okAction in
+                    
+                    currentUser.delete { error in
+                        if let error = error {
+                            print("회원탈퇴 실패: \(error.localizedDescription)")
+                        } else {
+                            do {
+                                self.handleLogout()
+                            } catch {
+                                print("로그아웃 실패: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            default:
+                break
             }
-
         default:
-            return
+            break
         }
     }
 }

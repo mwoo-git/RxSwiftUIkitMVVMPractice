@@ -7,13 +7,13 @@
 
 import Firebase
 import CryptoKit
+import RxSwift
 
 class SigninViewModel {
     // MARK: - Properties
     
     typealias FirebaseUser = FirebaseAuth.User
     
-    private var tokenId: String?
     private var user: FirebaseUser?
     
     enum SignInType {
@@ -21,28 +21,26 @@ class SigninViewModel {
         case apple
     }
     
-    // MARK: Apple
-    
-    func appleSignInEventOccurred(withTokenId tokenId: String) {
-        self.tokenId = tokenId
-        print("토큰 아이디 입니다. \(tokenId)")
-        appleSignin()
+    enum Output {
+        case didFirstSignInWithApple
+        case didAlreadySignInWithApple
+        case didFailToSignInWithApple
     }
     
-    private func appleSignin() {
-        guard let tokenId = tokenId else { return }
-        
-        let nonce = sha256(randomNonceString())
-        let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
-        
-        AuthService.signinUser(withCredential: credential) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-                self.didUserAlreadyRegisterInFirestore(type: .apple)
-            case .failure(let error):
-                print("DEBUG: Failed to signin user \(error.localizedDescription)")
-            }
+    // MARK: Apple
+    
+    func appleSignin(withTokenId tokenId: String) async -> Output {
+        do {
+            let nonce = sha256(randomNonceString())
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
+            let user = try await AuthService.signinUser(withCredential: credential)
+            self.user = user
+            let status = try await didUserAlreadyRegisterInFirestore(type: .apple)
+            
+            return status
+        } catch {
+            print("DEBUG: Failed to appleSignin\(error.localizedDescription)")
+            return .didFailToSignInWithApple
         }
     }
     
@@ -90,9 +88,19 @@ class SigninViewModel {
         return result
     }
     
-    // MARK: - Helpers
+    // MARK: - DidUserAlreadyRegisterInFirestore
     
-    private func didUserAlreadyRegisterInFirestore(type: SignInType) {
-        guard let user = user else { return }
+    private func didUserAlreadyRegisterInFirestore(type: SignInType) async throws -> Output {
+        do {
+            guard let user = user else { return .didFailToSignInWithApple }
+            
+            let isExisted = try await FirebaseService.isUserAlreadyExisted(user: user)
+            
+            return isExisted ? .didAlreadySignInWithApple : .didFirstSignInWithApple
+        } catch {
+            print("DEBUG: Failed to didUserAlreadyRegisterInFirestore \(error.localizedDescription)")
+            throw error
+        }
     }
 }
+

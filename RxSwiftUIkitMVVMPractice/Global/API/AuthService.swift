@@ -8,14 +8,13 @@
 import Firebase
 
 struct AuthService {
-    static func signinUser(withCredential credential: OAuthCredential, completion: @escaping (Result<User, Error>) -> Void) {
-        Auth.auth().signIn(with: credential) { (result, error) in
-            if let error = error {
-                completion(.failure(error))
-            }
-            
-            guard let authResult = result else { return }
-            completion(.success(authResult.user))
+    static func signinUser(withCredential credential: OAuthCredential) async throws -> User {
+        do {
+            let result = try await Auth.auth().signIn(with: credential)
+            return result.user
+        } catch {
+            print("DEBUG: Failed to signinUser\(error.localizedDescription)")
+            throw error
         }
     }
 }
