@@ -17,5 +17,15 @@ struct AuthService {
             throw error
         }
     }
+    
+    static func signinUser(withEmail email: String, password: String) async throws -> User {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            return result.user
+        } catch {
+            print("DEBUG: Failed to signinUser\(error.localizedDescription)")
+            throw error
+        }
+    }
 }
 

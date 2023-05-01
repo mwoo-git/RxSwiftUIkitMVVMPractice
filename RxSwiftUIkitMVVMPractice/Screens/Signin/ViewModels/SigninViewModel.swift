@@ -7,7 +7,6 @@
 
 import Firebase
 import CryptoKit
-import RxSwift
 
 class SigninViewModel {
     // MARK: - Properties
@@ -25,6 +24,17 @@ class SigninViewModel {
         case didFirstSignInWithApple
         case didAlreadySignInWithApple
         case didFailToSignInWithApple
+    }
+    
+    // MARK: - Kakao
+    
+    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
+    private func kakaoSignIn() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            signInWithKakaoTalkApp()
+        } else {
+            signInWithKakaoWeb()
+        }
     }
     
     // MARK: Apple
