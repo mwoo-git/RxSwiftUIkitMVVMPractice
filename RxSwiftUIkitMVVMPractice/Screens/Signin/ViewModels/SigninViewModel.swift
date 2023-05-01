@@ -7,6 +7,8 @@
 
 import Firebase
 import CryptoKit
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class SigninViewModel {
     // MARK: - Properties
@@ -28,14 +30,14 @@ class SigninViewModel {
     
     // MARK: - Kakao
     
-    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
-    private func kakaoSignIn() {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            signInWithKakaoTalkApp()
-        } else {
-            signInWithKakaoWeb()
-        }
-    }
+//    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
+//    private func kakaoSignIn() {
+//        if UserApi.isKakaoTalkLoginAvailable() {
+//            signInWithKakaoTalkApp()
+//        } else {
+//            signInWithKakaoWeb()
+//        }
+//    }
     
     // MARK: Apple
     

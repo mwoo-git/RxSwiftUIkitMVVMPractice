@@ -9,6 +9,9 @@ target 'RxSwiftUIkitMVVMPractice' do
 	pod 'RxSwift'
 	pod 'RxCocoa'
 	pod 'SDWebImage'
+	pod 'KakaoSDKAuth'
+	pod 'KakaoSDKUser'
+	pod 'KakaoSDKCommon' 
 
   target 'RxSwiftUIkitMVVMPracticeTests' do
     inherit! :search_paths
