@@ -9,13 +9,17 @@ import Firebase
 import CryptoKit
 import KakaoSDKAuth
 import KakaoSDKUser
+import RxSwift
 
 class SigninViewModel {
     // MARK: - Properties
     
     typealias FirebaseUser = FirebaseAuth.User
+    typealias KakaoUser = KakaoSDKUser.User
     
     private var user: FirebaseUser?
+    
+    let output = PublishSubject<Output>()
     
     enum SignInType {
         case kakao
@@ -25,38 +29,39 @@ class SigninViewModel {
     enum Output {
         case didFirstSignInWithApple
         case didAlreadySignInWithApple
-        case didFailToSignInWithApple
+        case didFailToSignInWithApple(error: Error)
+        
+        case didFirstSignInWithKakao
+        case didAlreadySignInWithKakao
+        case didFailToSignInWithKakao(error: Error)
     }
     
     // MARK: - Kakao
     
-//    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
-//    private func kakaoSignIn() {
-//        if UserApi.isKakaoTalkLoginAvailable() {
-//            signInWithKakaoTalkApp()
-//        } else {
-//            signInWithKakaoWeb()
-//        }
-//    }
-    
-    // MARK: Apple
-    
-    func appleSignin(withTokenId tokenId: String) async -> Output {
-        do {
-            let nonce = sha256(randomNonceString())
-            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
-            let user = try await AuthService.signinUser(withCredential: credential)
-            self.user = user
-            let status = try await didUserAlreadyRegisterInFirestore(type: .apple)
-            
-            return status
-        } catch {
-            print("DEBUG: Failed to appleSignin\(error.localizedDescription)")
-            return .didFailToSignInWithApple
+    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
+    private func kakaoSignIn() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            //            signInWithKakaoTalkApp()
+        } else {
+            //            signInWithKakaoWeb()
         }
     }
     
-    private func sha256(_ input: String) -> String {
+    // MARK: Apple
+    
+    func appleSignin(withTokenId tokenId: String) async {
+        do {
+            let nonce = await sha256(await randomNonceString())
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
+            let user = try await AuthService.signinUser(withCredential: credential)
+            self.user = user
+            await didUserAlreadyRegisterInFirestore(type: .apple)
+        } catch {
+            output.onNext(.didFailToSignInWithApple(error: error))
+        }
+    }
+    
+    private func sha256(_ input: String) async -> String {
         let inputData = Data(input.utf8)
         let hashedData = SHA256.hash(data: inputData)
         let hashString = hashedData.compactMap {
@@ -66,7 +71,7 @@ class SigninViewModel {
         return hashString
     }
     
-    private func randomNonceString(length: Int = 32) -> String {
+    private func randomNonceString(length: Int = 32) async -> String {
         precondition(length > 0)
         let charset: [Character] =
         Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
@@ -102,16 +107,18 @@ class SigninViewModel {
     
     // MARK: - DidUserAlreadyRegisterInFirestore
     
-    private func didUserAlreadyRegisterInFirestore(type: SignInType) async throws -> Output {
+    private func didUserAlreadyRegisterInFirestore(type: SignInType) async {
         do {
-            guard let user = user else { return .didFailToSignInWithApple }
-            
-            let isExisted = try await FirebaseService.isUserAlreadyExisted(user: user)
-            
-            return isExisted ? .didAlreadySignInWithApple : .didFirstSignInWithApple
+            guard let user = user else { return }
+            let status = try await FirebaseService.isUserAlreadyExisted(user: user)
+            switch type {
+            case .apple:
+                output.onNext(status ? .didAlreadySignInWithApple : .didFirstSignInWithApple)
+            case .kakao:
+                output.onNext(status ? .didAlreadySignInWithKakao : .didFirstSignInWithKakao)
+            }
         } catch {
-            print("DEBUG: Failed to didUserAlreadyRegisterInFirestore \(error.localizedDescription)")
-            throw error
+            output.onNext(.didFailToSignInWithApple(error: error))
         }
     }
 }

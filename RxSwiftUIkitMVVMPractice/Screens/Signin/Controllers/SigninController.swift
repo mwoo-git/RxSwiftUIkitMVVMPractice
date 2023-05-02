@@ -7,6 +7,7 @@
 
 import UIKit
 import AuthenticationServices
+import RxSwift
 
 protocol AuthenticationDelegate: class {
     func authenticationComlete()
@@ -17,6 +18,7 @@ class SigninController: UIViewController {
     
     private var vm = SigninViewModel()
     weak var delegate: AuthenticationDelegate?
+    private let disposeBag = DisposeBag()
     
     private let brandingImageView: UIImageView = {
         let imageView = UIImageView()
@@ -54,6 +56,7 @@ class SigninController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        bind()
     }
     
     // MARK: - Helpers
@@ -77,6 +80,26 @@ class SigninController: UIViewController {
         view.addSubview(stack)
         stack.centerX(inView: view)
         stack.anchor(top: brandingImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 120, paddingLeft: 16, paddingRight: 16)
+    }
+    
+    func bind() {
+        vm.output
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { event in
+            switch event {
+            case .didFirstSignInWithApple, .didFirstSignInWithKakao:
+                print("처음 로그인했어요.")
+                self.delegate?.authenticationComlete()
+                self.dismiss(animated: true, completion: nil)
+                
+            case .didAlreadySignInWithApple, .didAlreadySignInWithKakao:
+                self.delegate?.authenticationComlete()
+                self.dismiss(animated: true, completion: nil)
+                
+            case .didFailToSignInWithApple(let error), .didFailToSignInWithKakao(let error):
+                print("DEBUG: Failed sign in user \(error.localizedDescription)")
+            }
+        }).disposed(by: disposeBag)
     }
     
     // MARK: - Actions
@@ -113,18 +136,7 @@ extension SigninController: ASAuthorizationControllerDelegate, ASAuthorizationCo
             guard let appleIDToken = appleIDCredential.identityToken else { return }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
             Task {
-                let signin = await vm.appleSignin(withTokenId: idTokenString)
-                switch signin {
-                case .didFirstSignInWithApple:
-                    print("애플 로그인이 처음이에요")
-                    self.delegate?.authenticationComlete()
-                    self.dismiss(animated: true, completion: nil)
-                case .didAlreadySignInWithApple:
-                    self.delegate?.authenticationComlete()
-                    self.dismiss(animated: true, completion: nil)
-                case .didFailToSignInWithApple:
-                    print("DEBUG: Failed to didCompleteWithAuthorization")
-                }
+                await vm.appleSignin(withTokenId: idTokenString)
             }
         }
     }
