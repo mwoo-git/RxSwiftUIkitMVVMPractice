@@ -27,5 +27,15 @@ struct AuthService {
             throw error
         }
     }
+    
+    static func registerUser(withEmail email: String, password: String) async throws -> User {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            return result.user
+        } catch {
+            print("DEBUG: Failed to registerUser\(error.localizedDescription)")
+            throw error
+        }
+    }
 }
 

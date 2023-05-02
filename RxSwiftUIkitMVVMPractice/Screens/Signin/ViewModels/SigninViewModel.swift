@@ -21,43 +21,96 @@ class SigninViewModel {
     
     let output = PublishSubject<Output>()
     
-    enum SignInType {
-        case kakao
-        case apple
-    }
-    
     enum Output {
-        case didFirstSignInWithApple
-        case didAlreadySignInWithApple
-        case didFailToSignInWithApple(error: Error)
-        
-        case didFirstSignInWithKakao
-        case didAlreadySignInWithKakao
-        case didFailToSignInWithKakao(error: Error)
+        case didFirstSignIn
+        case didAlreadySignIn
+        case didFailToSignIn(error: Error)
     }
     
-    // MARK: - Kakao
+    // MARK: - KakaoSignIn
     
-    /// 카카오 로그인 이벤트 시작(웹과 앱 로그인으로 구분)
-    private func kakaoSignIn() {
+    func kakaoSignin() {
         if UserApi.isKakaoTalkLoginAvailable() {
-            //            signInWithKakaoTalkApp()
+            signInWithKakaoTalkApp()
         } else {
-            //            signInWithKakaoWeb()
+            signInWithKakaoWeb()
         }
     }
     
-    // MARK: Apple
+    private func signInWithKakaoTalkApp() {
+        UserApi.shared.loginWithKakaoTalk { [weak self] _, error in
+            if let error = error {
+                self?.output.onNext(.didFailToSignIn(error: error))
+            }
+            self?.validateKakaoUserData()
+        }
+    }
     
-    func appleSignin(withTokenId tokenId: String) async {
-        do {
-            let nonce = await sha256(await randomNonceString())
-            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
-            let user = try await AuthService.signinUser(withCredential: credential)
-            self.user = user
-            await didUserAlreadyRegisterInFirestore(type: .apple)
-        } catch {
-            output.onNext(.didFailToSignInWithApple(error: error))
+    private func signInWithKakaoWeb() {
+        UserApi.shared.loginWithKakaoAccount { [weak self] _, error in
+            if let error = error {
+                self?.output.onNext(.didFailToSignIn(error: error))
+            }
+            self?.validateKakaoUserData()
+        }
+    }
+    
+    private func validateKakaoUserData() {
+        UserApi.shared.me { [weak self] kakaoUser, error in
+            if let error = error {
+                self?.output.onNext(.didFailToSignIn(error: error))
+            } else {
+                self?.registerKakaoUserToAuth(user: kakaoUser)
+            }
+        }
+    }
+    
+    private func registerKakaoUserToAuth(user kakaoUser: KakaoUser?) {
+        Task {
+            do {
+                guard let email = kakaoUser?.kakaoAccount?.email,
+                      let password = kakaoUser?.id else { return }
+                
+                let result = try await AuthService.registerUser(withEmail: email, password: String(password))
+                
+                validateKakaoUserInAuth(user: kakaoUser)
+            } catch let error as NSError {
+                if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
+                    validateKakaoUserInAuth(user: kakaoUser)
+                } else {
+                    output.onNext(.didFailToSignIn(error: error))
+                }
+            }
+        }
+    }
+    
+    private func validateKakaoUserInAuth(user: KakaoUser?) {
+        Task {
+            do {
+                guard let email = user?.kakaoAccount?.email,
+                      let password = (user?.id) else { return }
+                let user = try await AuthService.signinUser(withEmail: email, password: String(password))
+                self.user = user
+                await didUserAlreadyRegisterInFirestore()
+            } catch {
+                output.onNext(.didFailToSignIn(error: error))
+            }
+        }
+    }
+    
+    // MARK: AppleSignIn
+    
+    func appleSignin(withTokenId tokenId: String) {
+        Task {
+            do {
+                let nonce = await sha256(await randomNonceString())
+                let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenId, rawNonce: nonce)
+                let user = try await AuthService.signinUser(withCredential: credential)
+                self.user = user
+                await didUserAlreadyRegisterInFirestore()
+            } catch {
+                output.onNext(.didFailToSignIn(error: error))
+            }
         }
     }
     
@@ -107,18 +160,13 @@ class SigninViewModel {
     
     // MARK: - DidUserAlreadyRegisterInFirestore
     
-    private func didUserAlreadyRegisterInFirestore(type: SignInType) async {
+    private func didUserAlreadyRegisterInFirestore() async {
         do {
             guard let user = user else { return }
             let status = try await FirebaseService.isUserAlreadyExisted(user: user)
-            switch type {
-            case .apple:
-                output.onNext(status ? .didAlreadySignInWithApple : .didFirstSignInWithApple)
-            case .kakao:
-                output.onNext(status ? .didAlreadySignInWithKakao : .didFirstSignInWithKakao)
-            }
+            output.onNext(status ? .didAlreadySignIn : .didFirstSignIn)
         } catch {
-            output.onNext(.didFailToSignInWithApple(error: error))
+            output.onNext(.didFailToSignIn(error: error))
         }
     }
 }

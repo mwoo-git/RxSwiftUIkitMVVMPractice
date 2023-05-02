@@ -30,7 +30,7 @@ class SigninController: UIViewController {
     
     private lazy var appleSignInButton: ASAuthorizationAppleIDButton = {
         let button = ASAuthorizationAppleIDButton(type: .signIn, style: .black)
-        button.addTarget(self, action: #selector(appleSignInButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(appleSignInButtonTapped), for: .touchUpInside)
         button.setHeight(50)
         return button
     }()
@@ -39,7 +39,7 @@ class SigninController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "kakao_login_large_wide"), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(kakaoSignInButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(kakaoSignInButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -65,8 +65,8 @@ class SigninController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "로그인"
         
-//        navigationController?.navigationBar.isHidden = true
-//        navigationController?.navigationBar.barStyle = .black
+        //        navigationController?.navigationBar.isHidden = true
+        //        navigationController?.navigationBar.barStyle = .black
         
         view.addSubview(brandingImageView)
         brandingImageView.centerX(inView: view)
@@ -85,26 +85,26 @@ class SigninController: UIViewController {
     func bind() {
         vm.output
             .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { event in
-            switch event {
-            case .didFirstSignInWithApple, .didFirstSignInWithKakao:
-                print("처음 로그인했어요.")
-                self.delegate?.authenticationComlete()
-                self.dismiss(animated: true, completion: nil)
-                
-            case .didAlreadySignInWithApple, .didAlreadySignInWithKakao:
-                self.delegate?.authenticationComlete()
-                self.dismiss(animated: true, completion: nil)
-                
-            case .didFailToSignInWithApple(let error), .didFailToSignInWithKakao(let error):
-                print("DEBUG: Failed sign in user \(error.localizedDescription)")
-            }
-        }).disposed(by: disposeBag)
+            .subscribe(onNext: { [weak self] event in
+                switch event {
+                case .didFirstSignIn:
+                    print("처음 로그인했어요.")
+                    self?.delegate?.authenticationComlete()
+                    self?.dismiss(animated: true, completion: nil)
+                    
+                case .didAlreadySignIn:
+                    self?.delegate?.authenticationComlete()
+                    self?.dismiss(animated: true, completion: nil)
+                    
+                case .didFailToSignIn(let error):
+                    print("DEBUG: Failed sign in user \(error.localizedDescription)")
+                }
+            }).disposed(by: disposeBag)
     }
     
     // MARK: - Actions
     
-    @objc func appleSignInButtonTapped(_ sender: Any) {
+    @objc func appleSignInButtonTapped() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -115,7 +115,8 @@ class SigninController: UIViewController {
         authrizationController.performRequests()
     }
     
-    @objc func kakaoSignInButtonTapped(_ sender: Any) {
+    @objc func kakaoSignInButtonTapped() {
+        vm.kakaoSignin()
     }
     
     @objc func guestButtonTapped() {
@@ -135,9 +136,7 @@ extension SigninController: ASAuthorizationControllerDelegate, ASAuthorizationCo
         if case let appleIDCredential as ASAuthorizationAppleIDCredential = authorization.credential {
             guard let appleIDToken = appleIDCredential.identityToken else { return }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
-            Task {
-                await vm.appleSignin(withTokenId: idTokenString)
-            }
+            vm.appleSignin(withTokenId: idTokenString)
         }
     }
 }
