@@ -65,9 +65,6 @@ class SigninController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "로그인"
         
-        //        navigationController?.navigationBar.isHidden = true
-        //        navigationController?.navigationBar.barStyle = .black
-        
         view.addSubview(brandingImageView)
         brandingImageView.centerX(inView: view)
         brandingImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 70)
