@@ -141,7 +141,7 @@ Dependencies/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 ### Project ###
-APIKey.swift
+ApiKey.swift
 GoogleService-Info.plist
 
 
