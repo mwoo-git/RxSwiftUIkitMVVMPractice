@@ -22,7 +22,7 @@ class SigninController: UIViewController {
     
     private let brandingImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SignInBackground")
+        imageView.image = UIImage(named: "babydoge")
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -85,10 +85,8 @@ class SigninController: UIViewController {
             .subscribe(onNext: { [weak self] event in
                 switch event {
                 case .didFirstSignIn:
-                    print("처음 로그인했어요.")
-                    self?.delegate?.authenticationComlete()
-                    self?.dismiss(animated: true, completion: nil)
-                    
+                    let controller = EditProfileController()
+                    self?.navigationController?.setViewControllers([controller], animated: true)
                 case .didAlreadySignIn:
                     self?.delegate?.authenticationComlete()
                     self?.dismiss(animated: true, completion: nil)

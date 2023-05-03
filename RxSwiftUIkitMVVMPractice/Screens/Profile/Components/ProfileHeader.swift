@@ -64,7 +64,7 @@ class ProfileHeader: UITableViewHeaderFooterView {
         addSubview(profileImageView)
         profileImageView.centerX(inView: self)
         profileImageView.setDimensions(height: 100, width: 100)
-        profileImageView.anchor(top: topAnchor, paddingTop: 16)
+        profileImageView.anchor(top: topAnchor)
         profileImageView.layer.cornerRadius = 100 / 2
         
         addSubview(nameLabel)
