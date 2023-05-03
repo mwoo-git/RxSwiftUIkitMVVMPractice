@@ -38,13 +38,13 @@ class RootController: UICollectionViewController {
         configureSortMenu()
         configureSerachController()
         configureUI()
-        addSubscribers()
+        bind()
     }
     
     // MARK: - API
     
-    func addSubscribers() {
-        vm.volumeRelay
+    func bind() {
+        vm.volume
             .subscribe(onNext: { [weak self] _ in
                 self?.collectionView.reloadData()
             })
@@ -109,15 +109,15 @@ class RootController: UICollectionViewController {
 
 extension RootController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return inSearchMode ? vm.filterdCoins.count : vm.volume.count
+        return inSearchMode ? vm.filterd.value.count : vm.volume.value.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TickerCell
         
-        let sort = sort == 0 ? vm.volume[indexPath.row] : sort == 1 ? vm.winners[indexPath.row] : vm.lossers[indexPath.row]
+        let sort = sort == 0 ? vm.volume.value[indexPath.row] : sort == 1 ? vm.winners.value[indexPath.row] : vm.lossers.value[indexPath.row]
         
-        let coin = inSearchMode ? vm.filterdCoins[indexPath.row] : sort
+        let coin = inSearchMode ? vm.filterd.value[indexPath.row] : sort
         
         cell.configure(with: coin)
         
@@ -159,10 +159,10 @@ extension RootController: UICollectionViewDelegateFlowLayout {
 extension RootController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
-        let coins = vm.volume.filter({
+        let coins = vm.volume.value.filter({
             $0.symbol.lowercased().contains(searchText) || $0.koreanName.contains(searchText) || $0.englishName.lowercased().contains(searchText)
         })
-        vm.filterdRelay.accept(coins)
+        vm.filterd.accept(coins)
         
         self.collectionView.reloadData()
     }

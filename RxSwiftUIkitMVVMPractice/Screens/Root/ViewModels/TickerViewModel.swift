@@ -9,6 +9,7 @@ import Foundation
 
 struct TickerViewModel {
     private let ticker: UpbitTicker
+    private let coin: UpbitCoin
     
     var market: String {
         return ticker.market
@@ -31,16 +32,15 @@ struct TickerViewModel {
     }
     
     var koreanName: String {
-        let coin = UpbitService.shared.coins.first(where: { $0.market == market })
-        return coin?.korean_name ?? symbol
+        return coin.korean_name
     }
     
     var englishName: String {
-        let coin = UpbitService.shared.coins.first(where: { $0.market == market })
-        return coin?.english_name ?? symbol
+        return coin.english_name
     }
     
-    init(ticker: UpbitTicker) {
+    init(ticker: UpbitTicker, coin: UpbitCoin) {
         self.ticker = ticker
+        self.coin = coin
     }
 }

@@ -8,51 +8,46 @@
 import Foundation
 import RxCocoa
 
-class UpbitService {
-    
-    static let shared = UpbitService()
-    
-    let coinsSubject = BehaviorRelay<[UpbitCoin]>(value: [])
-    var coins: [UpbitCoin] { coinsSubject.value }
-
-    let tickersSubject = BehaviorRelay<[String: UpbitTicker]>(value: [:])
-    var tickers: [String: UpbitTicker] { tickersSubject.value }
-    
-    private let baseUrl = "https://api.upbit.com/v1"
-    
-    private init() {
-        Task {
-            await fetchCoins()
-        }
-    }
-    
-    func fetchCoins() async {
-        let request = URLRequest(url: URL(string: "\(baseUrl)/market/all")!)
+struct UpbitService {
+    static func fetchCoins() async throws -> [UpbitCoin] {
+        let baseUrl = "https://api.upbit.com/v1"
+        let url = URL(string: "\(baseUrl)/market/all")!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-                print("Error fetching upbit coins")
-                return
+            let (data, response) = try await URLSession.shared.data(for: request, delegate: nil)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  200...299 ~= httpResponse.statusCode else {
+                throw NSError(domain: "Server Error", code: 0, userInfo: nil)
             }
-            let coins = try JSONDecoder().decode([UpbitCoin].self, from: data).filter { $0.market.hasPrefix("KRW") }
-            self.coinsSubject.accept(coins)
-            await fetchTickers()
+            
+            let coins = try JSONDecoder().decode([UpbitCoin].self, from: data)
+                .filter { $0.market.hasPrefix("KRW") }
+            
+            return coins
+            
         } catch {
             print("Error fetching upbit coins: \(error)")
+            throw error
         }
     }
     
-    func fetchTickers() async {
+    static func fetchTickers(withCoins coins: [UpbitCoin]) async throws -> [String: UpbitTicker] {
         let tickersUrl = "https://api.upbit.com/v1/ticker?markets=" + coins.map { $0.market }.joined(separator: ",")
-        let request = URLRequest(url: URL(string: tickersUrl)!)
+        let url = URL(string: tickersUrl)!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
         do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
-                print("Error fetching upbit tickers")
-                return
+            let (data, response) = try await URLSession.shared.data(for: request, delegate: nil)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  200...299 ~= httpResponse.statusCode else {
+                throw NSError(domain: "Server Error", code: 0, userInfo: nil)
             }
+            
             let tickersRestAPI = try JSONDecoder().decode([UpbitTickerRestAPI].self, from: data)
-            var tickersDict = [String: UpbitTicker]()
+            var tickersDict: [String: UpbitTicker] = [:]
             tickersRestAPI.forEach { tickerRestAPI in
                 let ticker = UpbitTicker(market: tickerRestAPI.market,
                                          change: tickerRestAPI.change,
@@ -62,9 +57,12 @@ class UpbitService {
                                          signedChangeRate: tickerRestAPI.signedChangeRate)
                 tickersDict[ticker.market] = ticker
             }
-            self.tickersSubject.accept(tickersDict)
+            
+            return tickersDict
+            
         } catch {
             print("Error fetching upbit tickers: \(error)")
+            throw error
         }
     }
 }
