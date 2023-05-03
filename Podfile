@@ -12,6 +12,8 @@ target 'RxSwiftUIkitMVVMPractice' do
 	pod 'KakaoSDKAuth'
 	pod 'KakaoSDKUser'
 	pod 'KakaoSDKCommon' 
+ 	pod 'YPImagePicker'
+
 
   target 'RxSwiftUIkitMVVMPracticeTests' do
     inherit! :search_paths

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import PhotosUI
+import YPImagePicker
 
 class EditProfileHeader: UITableViewHeaderFooterView {
     
@@ -16,10 +18,10 @@ class EditProfileHeader: UITableViewHeaderFooterView {
     private let eddPhotoButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "babydoge"), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
+//        button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = .systemGray4
         button.layer.masksToBounds = true
-//        button.imageView?.contentMode = .scaleAspectFill
+        button.imageView?.contentMode = .scaleAspectFill
         button.addTarget(self, action: #selector(handleProfilePhotoSelect), for: .touchUpInside)
         return button
     }()
@@ -76,8 +78,30 @@ class EditProfileHeader: UITableViewHeaderFooterView {
     // MARK: - Actions
     
     @objc func handleProfilePhotoSelect() {
-        print("handleProfilePhotoSelect")
+        var config = YPImagePickerConfiguration()
+        config.library.maxNumberOfItems = 1
+        config.library.mediaType = .photo
+        config.startOnScreen = YPPickerScreen.library
+        config.screens = [.library, .photo]
+        config.wordings.libraryTitle = "갤러리"
+        config.wordings.cameraTitle = "카메라"
+        config.wordings.next = "다음"
+        config.wordings.cancel = "취소"
+        config.wordings.filter = "필터"
+        
+        let picker = YPImagePicker(configuration: config)
+        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
+            window.rootViewController?.present(picker, animated: true, completion: nil)
+        }
+        
+        picker.didFinishPicking { [unowned picker] items, cancelled in
+            if cancelled {
+                picker.dismiss(animated: true, completion: nil)
+            }
+            if let photo = items.singlePhoto {
+                self.eddPhotoButton.setImage(photo.image, for: .normal)
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
-    
-    
 }
