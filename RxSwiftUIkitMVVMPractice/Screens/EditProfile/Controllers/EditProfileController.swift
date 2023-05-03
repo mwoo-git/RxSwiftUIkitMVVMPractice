@@ -63,15 +63,13 @@ class EditProfileController: UITableViewController {
 
 extension EditProfileController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 4
-        case 1:
-            return 3
         default:
             return 0
         }
@@ -81,9 +79,7 @@ extension EditProfileController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! EditProfileCell
         switch indexPath.section {
         case 0:
-            cell.configure(with: "이름", value: "민우")
-        case 1:
-            cell.configure(with: "이름", value: "민우")
+            cell.configure(withData: vm.tableCellList[indexPath.row])
         default:
             break
         }

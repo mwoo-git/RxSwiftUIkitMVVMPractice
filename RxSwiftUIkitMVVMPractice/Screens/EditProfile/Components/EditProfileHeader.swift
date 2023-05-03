@@ -13,12 +13,11 @@ class EditProfileHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     
-    private var profileImage: UIImage?
+    var profileImage: UIImage?
     
     private let eddPhotoButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "babydoge"), for: .normal)
-//        button.imageView?.contentMode = .scaleAspectFit
         button.tintColor = .systemGray4
         button.layer.masksToBounds = true
         button.imageView?.contentMode = .scaleAspectFill

@@ -43,8 +43,14 @@ class EditProfileCell: UITableViewCell {
     
     // MARK: - Helpers
     
-    func configure(with key: String, value: String) {
-        keyLabel.text = key
-        valueLabel.text = value
+    func configure(withData data: UserProfileElement) {
+        
+        keyLabel.text = data.key
+        valueLabel.text = data.value
+        
+        if data.value == "" {
+            valueLabel.text = data.key
+            valueLabel.textColor = .lightGray
+        }
     }
 }

@@ -24,6 +24,7 @@
 		731241C629DD8EC30032F6F8 /* TickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241C529DD8EC30032F6F8 /* TickerCell.swift */; };
 		731241C829DD91A10032F6F8 /* TickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241C729DD91A10032F6F8 /* TickerViewModel.swift */; };
 		731241CB29DD9C5F0032F6F8 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731241CA29DD9C5F0032F6F8 /* UIView.swift */; };
+		7364E3FE2A02B1C9002C9F26 /* UserProfileElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E3FD2A02B1C9002C9F26 /* UserProfileElement.swift */; };
 		736AE03F29EAF094003FC7D1 /* RootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE03E29EAF094003FC7D1 /* RootHeader.swift */; };
 		736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05929F26036003FC7D1 /* ChatController.swift */; };
 		736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05B29F26075003FC7D1 /* ProfileController.swift */; };
@@ -96,6 +97,7 @@
 		731241C529DD8EC30032F6F8 /* TickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerCell.swift; sourceTree = "<group>"; };
 		731241C729DD91A10032F6F8 /* TickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickerViewModel.swift; sourceTree = "<group>"; };
 		731241CA29DD9C5F0032F6F8 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		7364E3FD2A02B1C9002C9F26 /* UserProfileElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileElement.swift; sourceTree = "<group>"; };
 		736AE03E29EAF094003FC7D1 /* RootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHeader.swift; sourceTree = "<group>"; };
 		736AE05929F26036003FC7D1 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		736AE05B29F26075003FC7D1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				731241BB29DD6B720032F6F8 /* Upbit.swift */,
+				7364E3FD2A02B1C9002C9F26 /* UserProfileElement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				737DEF3629FA9A46008C8EE0 /* SigninController.swift in Sources */,
 				736AE06029F27753003FC7D1 /* ChatCell.swift in Sources */,
 				736AE06229F3C322003FC7D1 /* ProfileHeader.swift in Sources */,
+				7364E3FE2A02B1C9002C9F26 /* UserProfileElement.swift in Sources */,
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
 				736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */,
 				737DEF3829FBAC7A008C8EE0 /* SigninViewModel.swift in Sources */,
