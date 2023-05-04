@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private let cellIdentifier = "ProfileCell"
 private let headerIdentifier = "ProfileHeader"
@@ -14,6 +15,7 @@ class EditProfileController: UITableViewController {
     // MARK: - Properties
     
     private var vm = EditProfileViewModel()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Lifecycle
     
@@ -45,6 +47,14 @@ class EditProfileController: UITableViewController {
         tableView.register(EditProfileHeader.self,
                            forHeaderFooterViewReuseIdentifier: headerIdentifier)
         tableView.rowHeight = 50
+    }
+    
+    private func bind() {
+        vm.tableCellList
+            .subscribe(onNext: { [weak self] _ in
+                self?.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Actions
@@ -79,7 +89,7 @@ extension EditProfileController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! EditProfileCell
         switch indexPath.section {
         case 0:
-            cell.configure(withData: vm.tableCellList[indexPath.row])
+            cell.configure(withData: vm.tableCellList.value[indexPath.row])
         default:
             break
         }
