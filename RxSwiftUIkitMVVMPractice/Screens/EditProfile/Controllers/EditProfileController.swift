@@ -118,6 +118,9 @@ extension EditProfileController {
             case 0:
                 let controller = EditNameController()
                 navigationController?.pushViewController(controller, animated: true)
+            case 1:
+                let controller = EditUserNameController()
+                navigationController?.pushViewController(controller, animated: true)
             default:
                 break
             }
