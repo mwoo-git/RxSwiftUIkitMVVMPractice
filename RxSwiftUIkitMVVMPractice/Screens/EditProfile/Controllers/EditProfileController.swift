@@ -25,6 +25,12 @@ class EditProfileController: UITableViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     // MARK: - Helpers
     
     func configureTableView() {
@@ -32,13 +38,13 @@ class EditProfileController: UITableViewController {
         view.backgroundColor = .white
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "취소",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(handleEndEditing))
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(handleCancelEditing))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료",
                                                             style: .plain,
                                                             target: self,
-                                                            action: #selector(handleCancelEditing))
+                                                            action: #selector(handleEndEditing))
         navigationItem.leftBarButtonItem?.tintColor = .black;        navigationItem.rightBarButtonItem?.tintColor = .systemBlue
         
         tableView = UITableView(frame: tableView.frame, style: .insetGrouped)
@@ -47,14 +53,6 @@ class EditProfileController: UITableViewController {
         tableView.register(EditProfileHeader.self,
                            forHeaderFooterViewReuseIdentifier: headerIdentifier)
         tableView.rowHeight = 50
-    }
-    
-    private func bind() {
-        vm.tableCellList
-            .subscribe(onNext: { [weak self] _ in
-                self?.tableView.reloadData()
-            })
-            .disposed(by: disposeBag)
     }
     
     // MARK: - Actions
@@ -89,7 +87,7 @@ extension EditProfileController {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! EditProfileCell
         switch indexPath.section {
         case 0:
-            cell.configure(withData: vm.tableCellList.value[indexPath.row])
+            cell.configure(withData: vm.tableCellList[indexPath.row])
         default:
             break
         }
@@ -111,5 +109,20 @@ extension EditProfileController {
         guard section == 0 else { return 0 }
         
         return 170
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                let controller = EditNameController()
+                navigationController?.pushViewController(controller, animated: true)
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
 }

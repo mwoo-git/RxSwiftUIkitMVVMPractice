@@ -9,23 +9,23 @@ import RxRelay
 import RxSwift
 
 class EditProfileViewModel {
-    private let userInfo = UserInfo.shared
+    let userInfo = UserInfo.shared
     private let disposeBag = DisposeBag()
     
-    let tableCellList = BehaviorRelay<[UserProfileElement]>(value: [])
+    var tableCellList = [UserProfileElement]()
     
     init() {
         fetchUserInfo()
         bind()
     }
     
-    private func fetchUserInfo() {
-        self.tableCellList.accept([
+    func fetchUserInfo() {
+        tableCellList = [
             UserProfileElement(key: "이름", value: userInfo.name),
             UserProfileElement(key: "사용자 이름", value: userInfo.userName),
             UserProfileElement(key: "소개", value: userInfo.intro),
             UserProfileElement(key: "링크", value: userInfo.link)
-        ])
+        ]
     }
     
     private func bind() {

@@ -13,7 +13,7 @@ class EditProfileHeader: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     
-    var profileImage: UIImage?
+    private let userInfo = UserInfo.shared
     
     private let eddPhotoButton: UIButton = {
         let button = UIButton()
@@ -98,6 +98,7 @@ class EditProfileHeader: UITableViewHeaderFooterView {
                 picker.dismiss(animated: true, completion: nil)
             }
             if let photo = items.singlePhoto {
+                self.userInfo.profileImage = photo.image
                 self.eddPhotoButton.setImage(photo.image, for: .normal)
             }
             picker.dismiss(animated: true, completion: nil)

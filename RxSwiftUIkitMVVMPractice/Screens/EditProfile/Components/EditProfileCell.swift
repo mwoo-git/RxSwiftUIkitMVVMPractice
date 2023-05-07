@@ -47,6 +47,7 @@ class EditProfileCell: UITableViewCell {
         
         keyLabel.text = data.key
         valueLabel.text = data.value
+        valueLabel.textColor = .black
         
         if data.value == "" {
             valueLabel.text = data.key
