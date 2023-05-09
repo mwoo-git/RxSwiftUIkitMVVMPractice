@@ -31,6 +31,7 @@
 		7364E4082A079945002C9F26 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4072A079944002C9F26 /* UINavigationBar.swift */; };
 		7364E40E2A07B6CB002C9F26 /* EditUserNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E40D2A07B6CB002C9F26 /* EditUserNameController.swift */; };
 		7364E4102A07BFB2002C9F26 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E40F2A07BFB2002C9F26 /* UIViewController.swift */; };
+		7364E4122A07C4B5002C9F26 /* EditDescriptionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4112A07C4B5002C9F26 /* EditDescriptionController.swift */; };
 		736AE03F29EAF094003FC7D1 /* RootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE03E29EAF094003FC7D1 /* RootHeader.swift */; };
 		736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05929F26036003FC7D1 /* ChatController.swift */; };
 		736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05B29F26075003FC7D1 /* ProfileController.swift */; };
@@ -110,6 +111,7 @@
 		7364E4072A079944002C9F26 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 		7364E40D2A07B6CB002C9F26 /* EditUserNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserNameController.swift; sourceTree = "<group>"; };
 		7364E40F2A07BFB2002C9F26 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		7364E4112A07C4B5002C9F26 /* EditDescriptionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDescriptionController.swift; sourceTree = "<group>"; };
 		736AE03E29EAF094003FC7D1 /* RootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHeader.swift; sourceTree = "<group>"; };
 		736AE05929F26036003FC7D1 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		736AE05B29F26075003FC7D1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				737DEF582A024B73008C8EE0 /* EditProfileController.swift */,
 				7364E4032A078518002C9F26 /* EditNameControlloer.swift */,
 				7364E40D2A07B6CB002C9F26 /* EditUserNameController.swift */,
+				7364E4112A07C4B5002C9F26 /* EditDescriptionController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				731241C829DD91A10032F6F8 /* TickerViewModel.swift in Sources */,
 				737DEF422A00372B008C8EE0 /* StringLiteral.swift in Sources */,
 				731241BC29DD6B720032F6F8 /* Upbit.swift in Sources */,
+				7364E4122A07C4B5002C9F26 /* EditDescriptionController.swift in Sources */,
 				737DEF592A024B73008C8EE0 /* EditProfileController.swift in Sources */,
 				731241B629DD64910032F6F8 /* RootController.swift in Sources */,
 				736AE06829F3CB71003FC7D1 /* ProfileCell.swift in Sources */,

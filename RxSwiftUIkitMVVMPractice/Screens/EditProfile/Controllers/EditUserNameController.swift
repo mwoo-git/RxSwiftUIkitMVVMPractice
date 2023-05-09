@@ -62,8 +62,6 @@ class EditUserNameController: UIViewController {
         textField.becomeFirstResponder()
     }
     
-    
-    
     // MARK: - Heplers
     
     private func configureUI() {
@@ -99,6 +97,7 @@ class EditUserNameController: UIViewController {
     }
     
     // MARK: - Actions
+    
     @objc func handleEndEditing() {
         guard let text = textField.text else { return }
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)

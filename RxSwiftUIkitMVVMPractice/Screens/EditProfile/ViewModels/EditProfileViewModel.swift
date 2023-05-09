@@ -23,7 +23,7 @@ class EditProfileViewModel {
         tableCellList = [
             UserProfileElement(key: "이름", value: userInfo.name),
             UserProfileElement(key: "사용자 이름", value: userInfo.userName),
-            UserProfileElement(key: "소개", value: userInfo.intro),
+            UserProfileElement(key: "소개", value: userInfo.description),
             UserProfileElement(key: "링크", value: userInfo.link)
         ]
     }

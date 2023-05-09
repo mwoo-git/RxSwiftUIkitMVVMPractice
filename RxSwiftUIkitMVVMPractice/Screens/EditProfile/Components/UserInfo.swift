@@ -28,7 +28,7 @@ class UserInfo {
         didSet { didChange.onNext(())}
     }
     
-    var intro = "" {
+    var description = "" {
         didSet { didChange.onNext(()) }
     }
     
