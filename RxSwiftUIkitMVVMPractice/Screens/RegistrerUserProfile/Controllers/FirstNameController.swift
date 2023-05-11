@@ -28,7 +28,6 @@ class FirstNameController: UIViewController {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.setHeight(50)
-        textField.delegate = self
         textField.clearButtonMode = .always
         textField.placeholder = "성명"
         textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)

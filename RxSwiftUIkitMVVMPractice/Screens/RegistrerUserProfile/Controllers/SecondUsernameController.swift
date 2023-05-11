@@ -170,12 +170,12 @@ extension SecondUsernameController {
         validateUsernameFailed()
     }
     
-    private func ValidateUsernameFailed() {
+    private func validateCharacterFailed() {
         isPossibleLabel.text = "영어 소문자, 숫자, 밑줄, 마침표만 포함될 수 있습니다."
         validateUsernameFailed()
     }
     
-    private func ValidateUsernameLengthFalied() {
+    private func validateUsernameLengthFalied() {
         isPossibleLabel.text = "사용자 이름은 30자를 초과할 수 없습니다."
         validateUsernameFailed()
     }
@@ -202,11 +202,11 @@ extension SecondUsernameController {
                 
                 guard !username.isEmpty else { return usernameIsEmpty() }
                 
-                guard ValidateService.validateString(withUsername: username) else { return ValidateUsernameFailed() }
+                guard ValidateService.validateCharacters(withUsername: username) else { return validateCharacterFailed() }
                 
-                guard ValidateService.isSafeString(withUsername: username) else { return usernameIsNotSafe() }
+                guard ValidateService.isUsernameSafe(withUsername: username) else { return usernameIsNotSafe() }
                 
-                guard username.count <= 30 else { return ValidateUsernameLengthFalied() }
+                guard username.count <= 30 else { return validateUsernameLengthFalied() }
                 
                 isPossibleLabel.text = "사용할 수 있는 사용자 이름입니다."
                 isPossibleLabel.textColor = .systemBlue
