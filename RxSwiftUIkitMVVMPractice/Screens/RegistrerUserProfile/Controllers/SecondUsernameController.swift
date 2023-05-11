@@ -202,11 +202,9 @@ extension SecondUsernameController {
                 
                 guard !username.isEmpty else { return usernameIsEmpty() }
                 
-                guard ValidateService.validateString(withUsername: username) else {
-                    return ValidateUsernameFailed() }
+                guard ValidateService.validateString(withUsername: username) else { return ValidateUsernameFailed() }
                 
-                guard ValidateService.isSafeString(withUsername: username) else {
-                    return usernameIsNotSafe() }
+                guard ValidateService.isSafeString(withUsername: username) else { return usernameIsNotSafe() }
                 
                 guard username.count <= 30 else { return ValidateUsernameLengthFalied() }
                 
