@@ -16,6 +16,16 @@ class EditProfileController: UITableViewController {
     
     private var vm = EditProfileViewModel()
     private let disposeBag = DisposeBag()
+    private let userInfo = UserInfo.shared
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint()
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        return activityIndicator
+    }()
     
     // MARK: - Lifecycle
     
