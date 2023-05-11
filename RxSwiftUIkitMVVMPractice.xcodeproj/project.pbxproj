@@ -35,7 +35,9 @@
 		7364E4142A0CC396002C9F26 /* EditLinkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4132A0CC396002C9F26 /* EditLinkController.swift */; };
 		7364E41A2A0CD956002C9F26 /* CGUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4192A0CD956002C9F26 /* CGUser.swift */; };
 		7364E41C2A0CDD85002C9F26 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E41B2A0CDD85002C9F26 /* ImageUploader.swift */; };
-		7364E41E2A0CE49A002C9F26 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E41D2A0CE49A002C9F26 /* UserService.swift */; };
+		7364E4242A0D0275002C9F26 /* FirstNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4232A0D0275002C9F26 /* FirstNameController.swift */; };
+		7364E4262A0D144B002C9F26 /* SecondUsernameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4252A0D144B002C9F26 /* SecondUsernameController.swift */; };
+		7364E4292A0D4405002C9F26 /* ValidateSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364E4282A0D4405002C9F26 /* ValidateSevice.swift */; };
 		736AE03F29EAF094003FC7D1 /* RootHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE03E29EAF094003FC7D1 /* RootHeader.swift */; };
 		736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05929F26036003FC7D1 /* ChatController.swift */; };
 		736AE05C29F26075003FC7D1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736AE05B29F26075003FC7D1 /* ProfileController.swift */; };
@@ -121,7 +123,9 @@
 		7364E4182A0CD13B002C9F26 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7364E4192A0CD956002C9F26 /* CGUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGUser.swift; sourceTree = "<group>"; };
 		7364E41B2A0CDD85002C9F26 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
-		7364E41D2A0CE49A002C9F26 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		7364E4232A0D0275002C9F26 /* FirstNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstNameController.swift; sourceTree = "<group>"; };
+		7364E4252A0D144B002C9F26 /* SecondUsernameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondUsernameController.swift; sourceTree = "<group>"; };
+		7364E4282A0D4405002C9F26 /* ValidateSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSevice.swift; sourceTree = "<group>"; };
 		736AE03E29EAF094003FC7D1 /* RootHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHeader.swift; sourceTree = "<group>"; };
 		736AE05929F26036003FC7D1 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		736AE05B29F26075003FC7D1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -251,7 +255,6 @@
 				737DEF3929FBBA7C008C8EE0 /* AuthService.swift */,
 				737DEF3E29FBF256008C8EE0 /* FirebaseService.swift */,
 				7364E41B2A0CDD85002C9F26 /* ImageUploader.swift */,
-				7364E41D2A0CE49A002C9F26 /* UserService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -305,6 +308,47 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		7364E41F2A0D01DC002C9F26 /* RegistrerUserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				7364E4222A0D0202002C9F26 /* Components */,
+				7364E4212A0D01F7002C9F26 /* ViewModels */,
+				7364E4202A0D01F0002C9F26 /* Controllers */,
+			);
+			path = RegistrerUserProfile;
+			sourceTree = "<group>";
+		};
+		7364E4202A0D01F0002C9F26 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7364E4232A0D0275002C9F26 /* FirstNameController.swift */,
+				7364E4252A0D144B002C9F26 /* SecondUsernameController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		7364E4212A0D01F7002C9F26 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7364E4222A0D0202002C9F26 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7364E4272A0D43C8002C9F26 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				7364E4282A0D4405002C9F26 /* ValidateSevice.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		736AE04029EAF47E003FC7D1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +361,7 @@
 		736AE04B29F25E78003FC7D1 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				7364E4272A0D43C8002C9F26 /* Utilities */,
 				731241B929DD6B0D0032F6F8 /* API */,
 				731241BA29DD6B3D0032F6F8 /* Models */,
 				731241C929DD9C4E0032F6F8 /* Extensions */,
@@ -328,6 +373,7 @@
 		736AE04C29F25E89003FC7D1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				7364E41F2A0D01DC002C9F26 /* RegistrerUserProfile */,
 				731241BF29DD70660032F6F8 /* Root */,
 				736AE04F29F25F96003FC7D1 /* Chat */,
 				736AE04E29F25F83003FC7D1 /* Profile */,
@@ -804,7 +850,9 @@
 				737DEF3829FBAC7A008C8EE0 /* SigninViewModel.swift in Sources */,
 				737DEF512A0157E5008C8EE0 /* ApiKey.swift in Sources */,
 				7364E40E2A07B6CB002C9F26 /* EditUserNameController.swift in Sources */,
+				7364E4262A0D144B002C9F26 /* SecondUsernameController.swift in Sources */,
 				737DEF3D29FBE6C2008C8EE0 /* UITableViewController.swift in Sources */,
+				7364E4242A0D0275002C9F26 /* FirstNameController.swift in Sources */,
 				7364E4142A0CC396002C9F26 /* EditLinkController.swift in Sources */,
 				7364E41A2A0CD956002C9F26 /* CGUser.swift in Sources */,
 				731241C629DD8EC30032F6F8 /* TickerCell.swift in Sources */,
@@ -818,8 +866,8 @@
 				737DEF5C2A024C78008C8EE0 /* EditProfileViewModel.swift in Sources */,
 				736AE06429F3C4B3003FC7D1 /* ProfileViewModel.swift in Sources */,
 				7364E41C2A0CDD85002C9F26 /* ImageUploader.swift in Sources */,
+				7364E4292A0D4405002C9F26 /* ValidateSevice.swift in Sources */,
 				737DEF5E2A025097008C8EE0 /* EditProfileHeader.swift in Sources */,
-				7364E41E2A0CE49A002C9F26 /* UserService.swift in Sources */,
 				736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,4 +19,20 @@ struct FirebaseService {
             throw error
         }
     }
+    
+    static func isPossibleUsername(newName: String) async throws -> Bool {
+        do {
+            let firestore = Firestore.firestore()
+            let collectionRef = firestore.collection("users")
+            let querySnapshot = try await collectionRef.whereField("user_name", isEqualTo: newName).getDocuments()
+            
+            if querySnapshot.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            throw error
+        }
+    }
 }

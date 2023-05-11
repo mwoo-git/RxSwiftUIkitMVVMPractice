@@ -85,8 +85,8 @@ class SigninController: UIViewController {
             .subscribe(onNext: { [weak self] event in
                 switch event {
                 case .didFirstSignIn:
-                    let controller = EditProfileController()
-                    self?.navigationController?.setViewControllers([controller], animated: true)
+                    let controller = FirstNameController()
+                    self?.navigationController?.pushViewController(controller, animated: true)
                 case .didAlreadySignIn:
                     self?.delegate?.authenticationComlete()
                     self?.dismiss(animated: true, completion: nil)
