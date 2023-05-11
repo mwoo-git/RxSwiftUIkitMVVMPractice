@@ -32,7 +32,11 @@ class UserInfo {
         didSet { didChange.onNext(()) }
     }
     
-    var link = "" {
+    var linkUrl = "" {
+        didSet { didChange.onNext(()) }
+    }
+    
+    var linkTitle = "" {
         didSet { didChange.onNext(()) }
     }
     

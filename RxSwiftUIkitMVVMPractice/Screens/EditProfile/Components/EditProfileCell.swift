@@ -53,5 +53,10 @@ class EditProfileCell: UITableViewCell {
             valueLabel.text = data.key
             valueLabel.textColor = .lightGray
         }
+        
+        if data.key == "링크" && data.value != "" {
+            valueLabel.text = "1"
+            valueLabel.textColor = .lightGray
+        }
     }
 }

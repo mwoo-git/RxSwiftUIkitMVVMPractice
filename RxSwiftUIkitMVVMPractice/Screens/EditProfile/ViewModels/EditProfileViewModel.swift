@@ -24,7 +24,7 @@ class EditProfileViewModel {
             UserProfileElement(key: "이름", value: userInfo.name),
             UserProfileElement(key: "사용자 이름", value: userInfo.userName),
             UserProfileElement(key: "소개", value: userInfo.description),
-            UserProfileElement(key: "링크", value: userInfo.link)
+            UserProfileElement(key: "링크", value: userInfo.linkUrl)
         ]
     }
     
