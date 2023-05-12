@@ -131,8 +131,10 @@ class SecondUsernameController: UIViewController {
     }
     
     @objc func handleNext() {
-        guard let text = usernameTextField.text else { return }
-        print(text)
+        guard let username = usernameTextField.text else { return }
+        
+        let controller = ThirdAgreementController(name: name, username: username)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
