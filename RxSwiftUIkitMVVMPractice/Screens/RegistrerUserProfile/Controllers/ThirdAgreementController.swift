@@ -106,7 +106,8 @@ class ThirdAgreementController: UIViewController {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "circle")
         button.setDimensions(height: 35, width: 35)
-        button.setImage(image?.withTintColor(.lightGray), for: .normal)
+        button.setImage(image, for: .normal)
+        button.tintColor = .lightGray
         button.addTarget(self, action: #selector(handleAgreementCheckBoxButton), for: .touchUpInside)
         return button
     }()
@@ -140,7 +141,8 @@ class ThirdAgreementController: UIViewController {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "circle")
         button.setDimensions(height: 35, width: 35)
-        button.setImage(image?.withTintColor(.lightGray), for: .normal)
+        button.setImage(image, for: .normal)
+        button.tintColor = .lightGray
         button.addTarget(self, action: #selector(handlePrivacyCheckBoxButton), for: .touchUpInside)
         return button
     }()
@@ -273,7 +275,17 @@ class ThirdAgreementController: UIViewController {
     }
     
     @objc func handleAgree() {
-        print("동의 버튼")
+        Task {
+            do {
+                let credentials = AuthCredentials(name: name, username: username)
+                try await AuthService.registerUser(withCredential: credentials)
+                
+            } catch {
+                print("DEBUG: handleAgree() failed.")
+            }
+        }
+        
+        
     }
     
     @objc func handleCheckAll() {

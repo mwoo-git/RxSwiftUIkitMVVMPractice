@@ -24,7 +24,7 @@ struct FirebaseService {
         do {
             let firestore = Firestore.firestore()
             let collectionRef = firestore.collection("users")
-            let querySnapshot = try await collectionRef.whereField("user_name", isEqualTo: newName).getDocuments()
+            let querySnapshot = try await collectionRef.whereField("username", isEqualTo: newName).getDocuments()
             
             if querySnapshot.isEmpty {
                 return true

@@ -61,13 +61,13 @@
 		737DEF3D29FBE6C2008C8EE0 /* UITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF3C29FBE6C1008C8EE0 /* UITableViewController.swift */; };
 		737DEF3F29FBF256008C8EE0 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF3E29FBF256008C8EE0 /* FirebaseService.swift */; };
 		737DEF422A00372B008C8EE0 /* StringLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF412A00372B008C8EE0 /* StringLiteral.swift */; };
-		737DEF512A0157E5008C8EE0 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF502A0157E5008C8EE0 /* ApiKey.swift */; };
-		737DEF532A015955008C8EE0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 737DEF522A015954008C8EE0 /* GoogleService-Info.plist */; };
 		737DEF592A024B73008C8EE0 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF582A024B73008C8EE0 /* EditProfileController.swift */; };
 		737DEF5C2A024C78008C8EE0 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF5B2A024C73008C8EE0 /* EditProfileViewModel.swift */; };
 		737DEF5E2A025097008C8EE0 /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF5D2A025097008C8EE0 /* EditProfileHeader.swift */; };
 		737DEF602A025983008C8EE0 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF5F2A025983008C8EE0 /* EditProfileCell.swift */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
+		CEF3B8BF2A128E70001452F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */; };
+		CEF3B8C32A128ECD001452F2 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C22A128ECD001452F2 /* ApiKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,8 +145,6 @@
 		737DEF3C29FBE6C1008C8EE0 /* UITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewController.swift; sourceTree = "<group>"; };
 		737DEF3E29FBF256008C8EE0 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		737DEF412A00372B008C8EE0 /* StringLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringLiteral.swift; sourceTree = "<group>"; };
-		737DEF502A0157E5008C8EE0 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
-		737DEF522A015954008C8EE0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		737DEF582A024B73008C8EE0 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		737DEF5B2A024C73008C8EE0 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		737DEF5D2A025097008C8EE0 /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
@@ -155,6 +153,8 @@
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE508362FCF79090B579111F /* Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CEF3B8C22A128ECD001452F2 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		FB5362255B373B853F6263FE /* Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPracticeTests/Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,8 +227,8 @@
 				7312418D29DD63ED0032F6F8 /* Assets.xcassets */,
 				7312418F29DD63ED0032F6F8 /* LaunchScreen.storyboard */,
 				7312419229DD63ED0032F6F8 /* Info.plist */,
-				737DEF502A0157E5008C8EE0 /* ApiKey.swift */,
-				737DEF522A015954008C8EE0 /* GoogleService-Info.plist */,
+				CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */,
+				CEF3B8C22A128ECD001452F2 /* ApiKey.swift */,
 			);
 			path = RxSwiftUIkitMVVMPractice;
 			sourceTree = "<group>";
@@ -699,9 +699,9 @@
 			files = (
 				737DEF1C29FA6EC5008C8EE0 /* .gitignore in Resources */,
 				7312419129DD63ED0032F6F8 /* LaunchScreen.storyboard in Resources */,
-				737DEF532A015955008C8EE0 /* GoogleService-Info.plist in Resources */,
 				7312418E29DD63ED0032F6F8 /* Assets.xcassets in Resources */,
 				7312418C29DD63EB0032F6F8 /* Main.storyboard in Resources */,
+				CEF3B8BF2A128E70001452F2 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,11 +851,11 @@
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
 				736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */,
 				737DEF3829FBAC7A008C8EE0 /* SigninViewModel.swift in Sources */,
-				737DEF512A0157E5008C8EE0 /* ApiKey.swift in Sources */,
 				7364E40E2A07B6CB002C9F26 /* EditUserNameController.swift in Sources */,
 				7364E4262A0D144B002C9F26 /* SecondUsernameController.swift in Sources */,
 				737DEF3D29FBE6C2008C8EE0 /* UITableViewController.swift in Sources */,
 				7364E4242A0D0275002C9F26 /* FirstNameController.swift in Sources */,
+				CEF3B8C32A128ECD001452F2 /* ApiKey.swift in Sources */,
 				7364E4142A0CC396002C9F26 /* EditLinkController.swift in Sources */,
 				7364E42B2A0D709E002C9F26 /* ThirdAgreementController.swift in Sources */,
 				7364E41A2A0CD956002C9F26 /* CGUser.swift in Sources */,
