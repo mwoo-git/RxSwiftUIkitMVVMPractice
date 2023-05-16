@@ -70,7 +70,6 @@
 		CEF3B8C32A128ECD001452F2 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C22A128ECD001452F2 /* ApiKey.swift */; };
 		CEF3B8C52A13A852001452F2 /* FourthAddProfileImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C42A13A852001452F2 /* FourthAddProfileImageController.swift */; };
 		CEF3B8C72A13CF8E001452F2 /* FifthProfileImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C62A13CF8E001452F2 /* FifthProfileImageController.swift */; };
-		CEF3B8C92A13D5A8001452F2 /* UIAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C82A13D5A8001452F2 /* UIAlertAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,7 +159,6 @@
 		CEF3B8C22A128ECD001452F2 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		CEF3B8C42A13A852001452F2 /* FourthAddProfileImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthAddProfileImageController.swift; sourceTree = "<group>"; };
 		CEF3B8C62A13CF8E001452F2 /* FifthProfileImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthProfileImageController.swift; sourceTree = "<group>"; };
-		CEF3B8C82A13D5A8001452F2 /* UIAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertAction.swift; sourceTree = "<group>"; };
 		FB5362255B373B853F6263FE /* Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPracticeTests/Pods-RxSwiftUIkitMVVMPracticeTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -312,7 +310,6 @@
 				7364E4052A07990B002C9F26 /* UIBarButtonItem.swift */,
 				7364E4072A079944002C9F26 /* UINavigationBar.swift */,
 				7364E40F2A07BFB2002C9F26 /* UIViewController.swift */,
-				CEF3B8C82A13D5A8001452F2 /* UIAlertAction.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -882,7 +879,6 @@
 				736AE06429F3C4B3003FC7D1 /* ProfileViewModel.swift in Sources */,
 				7364E41C2A0CDD85002C9F26 /* ImageUploader.swift in Sources */,
 				7364E4292A0D4405002C9F26 /* ValidateSevice.swift in Sources */,
-				CEF3B8C92A13D5A8001452F2 /* UIAlertAction.swift in Sources */,
 				737DEF5E2A025097008C8EE0 /* EditProfileHeader.swift in Sources */,
 				736AE05A29F26036003FC7D1 /* ChatController.swift in Sources */,
 			);
