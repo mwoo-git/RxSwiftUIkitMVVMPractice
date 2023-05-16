@@ -120,14 +120,14 @@ class ThirdAgreementController: UIViewController {
         cell.backgroundColor = .white
         return cell
     }()
-
+    
     private let privacyLabel: UILabel = {
         let label = UILabel()
         label.text = "개인정보처리방침(필수)"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         return label
     }()
-
+    
     private let privacyLink: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("더 알아보기", for: .normal)
@@ -136,7 +136,7 @@ class ThirdAgreementController: UIViewController {
         button.addTarget(self, action: #selector(handlePrivacyLink), for: .touchUpInside)
         return button
     }()
-
+    
     private let privacyCheckBoxButton: UIButton = {
         let button = UIButton(type: .system)
         let image = UIImage(systemName: "circle")
@@ -156,8 +156,19 @@ class ThirdAgreementController: UIViewController {
         button.setHeight(50)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         button.isEnabled = false
-        button.addTarget(self, action: #selector(handleAgree), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleAgreeTapped), for: .touchUpInside)
         return button
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint()
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = true
+        activityIndicator.color = .white
+        activityIndicator.setDimensions(height: 30, width: 30)
+        return activityIndicator
     }()
     
     // MARK: - Lifecycle
@@ -212,22 +223,26 @@ class ThirdAgreementController: UIViewController {
         
         view.addSubview(privacyCell)
         privacyCell.anchor(top: divider.bottomAnchor, left: containerView.leftAnchor, right: containerView.rightAnchor, paddingLeft: 1, paddingBottom: 1, paddingRight: 1)
-
+        
         let stack2 = UIStackView(arrangedSubviews: [privacyLabel, privacyLink])
         stack2.axis = .vertical
         stack2.spacing = 0
         stack2.alignment = .leading
-
+        
         view.addSubview(stack2)
         stack2.centerY(inView: privacyCell)
         stack2.anchor(left: privacyCell.leftAnchor, paddingLeft: 12)
-
+        
         view.addSubview(privacyCheckBoxButton)
         privacyCheckBoxButton.centerY(inView: privacyCell)
         privacyCheckBoxButton.anchor(right: privacyCell.rightAnchor, paddingRight: 12)
         
         view.addSubview(agreeButton)
         agreeButton.anchor(top: containerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 26, paddingLeft: 12, paddingRight: 12)
+        
+        agreeButton.addSubview(activityIndicator)
+        activityIndicator.centerY(inView: agreeButton)
+        activityIndicator.centerX(inView: agreeButton)
         
     }
     
@@ -253,9 +268,11 @@ class ThirdAgreementController: UIViewController {
     
     private func updateNextButtonState() {
         if privacyChecked && agreementChecked {
+            checkAllButton.setTitle("모두 선택 취소", for: .normal)
             agreeButton.isEnabled = true
             agreeButton.backgroundColor = .systemBlue
         } else {
+            checkAllButton.setTitle("모두 선택", for: .normal)
             agreeButton.isEnabled = false
             agreeButton.backgroundColor = .systemBlue.withAlphaComponent(0.5)
         }
@@ -274,18 +291,25 @@ class ThirdAgreementController: UIViewController {
         }
     }
     
-    @objc func handleAgree() {
+    @objc func handleAgreeTapped() {
         Task {
             do {
+                agreeButton.setTitle(nil, for: .normal)
+                activityIndicator.isHidden = false
+                agreeButton.isEnabled = false
                 let credentials = AuthCredentials(name: name, username: username)
                 try await AuthService.registerUser(withCredential: credentials)
-                
+                let controller = FourthAddProfileImageController()
+                navigationController?.setViewControllers([controller], animated: true)
             } catch {
-                print("DEBUG: handleAgree() failed.")
+                makeMessageAlert(message: "정보를 등록하는데 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.")
+                agreeButton.setTitle("동의", for: .normal)
+                activityIndicator.isHidden = true
+                agreeButton.isEnabled = true
+                
+                print("DEBUG: handleAgreeTapped() failed.")
             }
         }
-        
-        
     }
     
     @objc func handleCheckAll() {
