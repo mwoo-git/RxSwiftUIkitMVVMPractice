@@ -8,7 +8,7 @@
 import UIKit
 import YPImagePicker
 
-class fifthProfileImageController: UIViewController {
+class FifthProfileImageController: UIViewController {
     // MARK: - Properties
     private var pickerConfig = YPImagePickerConfiguration()
     
@@ -123,15 +123,16 @@ class fifthProfileImageController: UIViewController {
                 activityIndicator.isHidden = false
                 complateButton.isEnabled = false
                 try await FirebaseService.uploadProfileImage(withImage: profileImage)
-                let controller = FourthAddProfileImageController()
+                let user = try await UserService.fetchUser()
+                let controller = SixthFinishController(user: user)
                 navigationController?.setViewControllers([controller], animated: true)
             } catch {
-                makeMessageAlert(message: "정보를 등록하는데 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.")
+                makeMessageAlert(message: "오류가 발생했습니다. 잠시 후에 다시 시도해주세요.")
                 complateButton.setTitle("완료", for: .normal)
                 activityIndicator.isHidden = true
                 complateButton.isEnabled = true
                 
-                print("DEBUG: handleComplateButton() failed.")
+                print("DEBUG: FifthProfileImageController.handleComplateButton() failed. \(error.localizedDescription)")
             }
         }
     }
@@ -168,7 +169,7 @@ class fifthProfileImageController: UIViewController {
 
 // MARK: - YPImagePicker
 
-extension fifthProfileImageController {
+extension FifthProfileImageController {
     private func configurePicker() {
         pickerConfig.library.maxNumberOfItems = 1
         pickerConfig.wordings.libraryTitle = "갤러리"
@@ -196,9 +197,7 @@ extension fifthProfileImageController {
 
     private func handleYPImagePicker() {
         let picker = YPImagePicker(configuration: pickerConfig)
-        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
-            window.rootViewController?.present(picker, animated: true, completion: nil)
-        }
+        present(picker, animated: true, completion: nil)
         
         picker.didFinishPicking { [unowned picker] items, cancelled in
             if cancelled {

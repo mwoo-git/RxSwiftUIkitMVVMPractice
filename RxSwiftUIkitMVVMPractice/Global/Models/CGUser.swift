@@ -19,7 +19,7 @@ struct CGUser {
     init(dictionary: [String: Any]) {
         self.name = dictionary["name"] as? String ?? ""
         self.username = dictionary["username"] as? String ?? ""
-        self.profileImageUrl = dictionary["profile_image_url"] as? String ?? ""
+        self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
         self.description = dictionary["description"] as? String ?? ""
         self.linkUrl = dictionary["link_url"] as? String ?? ""
         self.linkTitle = dictionary["link_title"] as? String ?? ""

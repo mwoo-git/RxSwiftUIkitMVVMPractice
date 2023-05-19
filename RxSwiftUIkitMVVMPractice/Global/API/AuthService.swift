@@ -46,7 +46,7 @@ struct AuthService {
     
     static func registerUser(withCredential credentials: AuthCredentials) async throws {
         do {
-            guard let uid = Auth.auth().currentUser?.uid else { return }
+            guard let uid = Auth.auth().currentUser?.uid else { return print("DEBUG: 유저 아이디 없음") }
             let data: [String: Any] = ["name": credentials.name, "username": credentials.username, "uid": uid]
             try await Firestore.firestore().collection("users").document(uid).setData(data)
         } catch {

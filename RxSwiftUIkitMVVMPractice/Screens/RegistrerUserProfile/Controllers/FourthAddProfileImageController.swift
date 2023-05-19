@@ -10,7 +10,7 @@ import YPImagePicker
 
 class FourthAddProfileImageController: UIViewController {
     // MARK: - Properties
-    private var pickerConfig = YPImagePickerConfiguration()
+    var pickerConfig = YPImagePickerConfiguration()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -74,6 +74,17 @@ class FourthAddProfileImageController: UIViewController {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint()
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = true
+        activityIndicator.color = .black
+        activityIndicator.setDimensions(height: 30, width: 30)
+        return activityIndicator
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -104,6 +115,10 @@ class FourthAddProfileImageController: UIViewController {
         view.addSubview(stack)
         stack.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
         
+        skipButton.addSubview(activityIndicator)
+        activityIndicator.centerY(inView: skipButton)
+        activityIndicator.centerX(inView: skipButton)
+        
     }
     
     // MARK: - Actions
@@ -128,7 +143,23 @@ class FourthAddProfileImageController: UIViewController {
     }
     
     @objc func handleSkipButton() {
-        print("handleSkipButton")
+        Task {
+            do {
+                skipButton.setTitle(nil, for: .normal)
+                activityIndicator.isHidden = false
+                skipButton.isEnabled = false
+                let user = try await UserService.fetchUser()
+                let controller = SixthFinishController(user: user)
+                navigationController?.setViewControllers([controller], animated: true)
+            } catch {
+                makeMessageAlert(message: "오류가 발생했습니다. 잠시 후에 다시 시도해주세요.")
+                skipButton.setTitle("건너뛰기", for: .normal)
+                activityIndicator.isHidden = true
+                skipButton.isEnabled = true
+                
+                print("DEBUG: FourthAddProfileImageController.handleSkipButton() failed.")
+            }
+        }
     }
 }
 
@@ -162,16 +193,14 @@ extension FourthAddProfileImageController {
 
     private func handleYPImagePicker() {
         let picker = YPImagePicker(configuration: pickerConfig)
-        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
-            window.rootViewController?.present(picker, animated: true, completion: nil)
-        }
+        present(picker, animated: true, completion: nil)
         
         picker.didFinishPicking { [unowned picker] items, cancelled in
             if cancelled {
                 picker.dismiss(animated: true, completion: nil)
             }
             if let photo = items.singlePhoto {
-                let controller = fifthProfileImageController(profileImage: photo.image)
+                let controller = FifthProfileImageController(profileImage: photo.image)
                 self.navigationController?.setViewControllers([controller], animated: false)
             }
             picker.dismiss(animated: true, completion: nil)

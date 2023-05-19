@@ -68,6 +68,7 @@
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
 		CE1870852A17A4E90056AD52 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1870842A17A4E90056AD52 /* UserService.swift */; };
 		CE1870872A17A5F00056AD52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1870862A17A5F00056AD52 /* Constants.swift */; };
+		CE1870892A17D8800056AD52 /* SixthFinishController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1870882A17D8800056AD52 /* SixthFinishController.swift */; };
 		CEF3B8BF2A128E70001452F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */; };
 		CEF3B8C32A128ECD001452F2 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C22A128ECD001452F2 /* ApiKey.swift */; };
 		CEF3B8C52A13A852001452F2 /* FourthAddProfileImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C42A13A852001452F2 /* FourthAddProfileImageController.swift */; };
@@ -158,6 +159,7 @@
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CE1870842A17A4E90056AD52 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CE1870862A17A5F00056AD52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CE1870882A17D8800056AD52 /* SixthFinishController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SixthFinishController.swift; sourceTree = "<group>"; };
 		CE508362FCF79090B579111F /* Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEF3B8C22A128ECD001452F2 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
@@ -337,6 +339,7 @@
 				7364E42A2A0D709E002C9F26 /* ThirdAgreementController.swift */,
 				CEF3B8C42A13A852001452F2 /* FourthAddProfileImageController.swift */,
 				CEF3B8C62A13CF8E001452F2 /* FifthProfileImageController.swift */,
+				CE1870882A17D8800056AD52 /* SixthFinishController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
 				736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */,
 				737DEF3829FBAC7A008C8EE0 /* SigninViewModel.swift in Sources */,
+				CE1870892A17D8800056AD52 /* SixthFinishController.swift in Sources */,
 				CE1870872A17A5F00056AD52 /* Constants.swift in Sources */,
 				CE1870852A17A4E90056AD52 /* UserService.swift in Sources */,
 				7364E40E2A07B6CB002C9F26 /* EditUserNameController.swift in Sources */,
