@@ -10,6 +10,8 @@ import YPImagePicker
 
 class FourthAddProfileImageController: UIViewController {
     // MARK: - Properties
+    private var pickerConfig = YPImagePickerConfiguration()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "프로필 사진 추가"
@@ -77,6 +79,7 @@ class FourthAddProfileImageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configurePicker()
     }
     
     // MARK: - Helpers
@@ -123,50 +126,46 @@ class FourthAddProfileImageController: UIViewController {
         
         present(alertController, animated: true, completion: nil)
     }
+    
+    @objc func handleSkipButton() {
+        print("handleSkipButton")
+    }
+}
 
+// MARK: -
+
+extension FourthAddProfileImageController {
+    private func configurePicker() {
+        pickerConfig.library.maxNumberOfItems = 1
+        pickerConfig.wordings.libraryTitle = "갤러리"
+        pickerConfig.wordings.cameraTitle = "카메라"
+        pickerConfig.wordings.next = "다음"
+        pickerConfig.wordings.cancel = "취소"
+        pickerConfig.wordings.filter = "필터"
+    }
+    
     private func openPhotoLibrary() {
-        var config = YPImagePickerConfiguration()
-        config.library.maxNumberOfItems = 1
-        config.library.mediaType = .photo
-        config.startOnScreen = YPPickerScreen.library
-        config.screens = [.library]
-        config.wordings.libraryTitle = "갤러리"
-        config.wordings.next = "다음"
-        config.wordings.cancel = "취소"
-        config.wordings.filter = "필터"
-
-        let picker = YPImagePicker(configuration: config)
-        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
-            window.rootViewController?.present(picker, animated: true, completion: nil)
-        }
-
-        picker.didFinishPicking { [unowned picker] items, cancelled in
-            if cancelled {
-                picker.dismiss(animated: true, completion: nil)
-            }
-            if let photo = items.singlePhoto {
-                self.profileImageView.image = photo.image
-            }
-            picker.dismiss(animated: true, completion: nil)
-        }
+        pickerConfig.library.mediaType = .photo
+        pickerConfig.startOnScreen = YPPickerScreen.library
+        pickerConfig.screens = [.library]
+        
+        handleYPImagePicker()
     }
     
     private func openCamera() {
-        var config = YPImagePickerConfiguration()
-        config.library.maxNumberOfItems = 1
-        config.library.mediaType = .photo
-        config.startOnScreen = YPPickerScreen.photo
-        config.screens = [.photo]
-        config.wordings.cameraTitle = "카메라"
-        config.wordings.next = "다음"
-        config.wordings.cancel = "취소"
-        config.wordings.filter = "필터"
+        pickerConfig.library.mediaType = .photo
+        pickerConfig.startOnScreen = YPPickerScreen.photo
+        pickerConfig.screens = [.photo]
+        
+        handleYPImagePicker()
+    }
 
-        let picker = YPImagePicker(configuration: config)
+    private func handleYPImagePicker() {
+        let picker = YPImagePicker(configuration: pickerConfig)
         if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
             window.rootViewController?.present(picker, animated: true, completion: nil)
         }
-
+        
         picker.didFinishPicking { [unowned picker] items, cancelled in
             if cancelled {
                 picker.dismiss(animated: true, completion: nil)
@@ -178,13 +177,4 @@ class FourthAddProfileImageController: UIViewController {
             picker.dismiss(animated: true, completion: nil)
         }
     }
-    
-    @objc func handleAddIma1geButton() {
-        
-    }
-    
-    @objc func handleSkipButton() {
-        print("handleSkipButton")
-    }
 }
-

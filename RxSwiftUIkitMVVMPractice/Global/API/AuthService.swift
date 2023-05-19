@@ -47,7 +47,7 @@ struct AuthService {
     static func registerUser(withCredential credentials: AuthCredentials) async throws {
         do {
             guard let uid = Auth.auth().currentUser?.uid else { return }
-            let data: [String: Any] = ["name": credentials.name, "username": credentials.username]
+            let data: [String: Any] = ["name": credentials.name, "username": credentials.username, "uid": uid]
             try await Firestore.firestore().collection("users").document(uid).setData(data)
         } catch {
             print("DEBUG: AuthService.registerUser(withCredential) failed.")

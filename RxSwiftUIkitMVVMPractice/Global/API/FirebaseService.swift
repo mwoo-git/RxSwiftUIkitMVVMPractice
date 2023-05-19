@@ -35,4 +35,16 @@ struct FirebaseService {
             throw error
         }
     }
+    
+    static func uploadProfileImage(withImage image: UIImage) async throws {
+        do {
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            let imageUrl = try await ImageUploader.uploadImage(image: image)
+            let data: [String: Any] = ["profileImageUrl": imageUrl]
+            try await Firestore.firestore().collection("users").document(uid).setData(data)
+        } catch {
+            print("DEBUG: ImageUploader.uploadProfileImage(withUrl) failed. \(error.localizedDescription)")
+            throw error
+        }
+    }
 }

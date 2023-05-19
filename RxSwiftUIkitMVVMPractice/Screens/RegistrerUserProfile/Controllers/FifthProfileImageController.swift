@@ -10,8 +10,11 @@ import YPImagePicker
 
 class fifthProfileImageController: UIViewController {
     // MARK: - Properties
+    private var pickerConfig = YPImagePickerConfiguration()
     
-    private var profileImage: UIImage
+    private var profileImage: UIImage {
+        didSet { profileImageView.image = profileImage }
+    }
     
     init(profileImage: UIImage) {
         self.profileImage = profileImage
@@ -68,11 +71,23 @@ class fifthProfileImageController: UIViewController {
         return button
     }()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.center = self.splitViewController?.view.center ?? CGPoint()
+        activityIndicator.style = UIActivityIndicatorView.Style.medium
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = true
+        activityIndicator.color = .white
+        activityIndicator.setDimensions(height: 30, width: 30)
+        return activityIndicator
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configurePicker()
     }
     
     // MARK: - Helpers
@@ -94,12 +109,31 @@ class fifthProfileImageController: UIViewController {
         view.addSubview(stack)
         stack.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 12, paddingRight: 12)
         
+        complateButton.addSubview(activityIndicator)
+        activityIndicator.centerY(inView: complateButton)
+        activityIndicator.centerX(inView: complateButton)
     }
     
     // MARK: - Actions
     
     @objc func handleComplateButton() {
-        print("handleComplateButton")
+        Task {
+            do {
+                complateButton.setTitle(nil, for: .normal)
+                activityIndicator.isHidden = false
+                complateButton.isEnabled = false
+                try await FirebaseService.uploadProfileImage(withImage: profileImage)
+                let controller = FourthAddProfileImageController()
+                navigationController?.setViewControllers([controller], animated: true)
+            } catch {
+                makeMessageAlert(message: "정보를 등록하는데 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.")
+                complateButton.setTitle("완료", for: .normal)
+                activityIndicator.isHidden = true
+                complateButton.isEnabled = true
+                
+                print("DEBUG: handleComplateButton() failed.")
+            }
+        }
     }
     
     @objc func handleEditImageButton() {
@@ -126,62 +160,54 @@ class fifthProfileImageController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    private func openPhotoLibrary() {
-        var config = YPImagePickerConfiguration()
-        config.library.maxNumberOfItems = 1
-        config.library.mediaType = .photo
-        config.startOnScreen = YPPickerScreen.library
-        config.screens = [.library]
-        config.wordings.libraryTitle = "갤러리"
-        config.wordings.next = "다음"
-        config.wordings.cancel = "취소"
-        config.wordings.filter = "필터"
-        
-        let picker = YPImagePicker(configuration: config)
-        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
-            window.rootViewController?.present(picker, animated: true, completion: nil)
-        }
-        
-        picker.didFinishPicking { [unowned picker] items, cancelled in
-            if cancelled {
-                picker.dismiss(animated: true, completion: nil)
-            }
-            if let photo = items.singlePhoto {
-                self.profileImageView.image = photo.image
-            }
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    private func openCamera() {
-        var config = YPImagePickerConfiguration()
-        config.library.maxNumberOfItems = 1
-        config.library.mediaType = .photo
-        config.startOnScreen = YPPickerScreen.photo
-        config.screens = [.photo]
-        config.wordings.cameraTitle = "카메라"
-        config.wordings.next = "다음"
-        config.wordings.cancel = "취소"
-        config.wordings.filter = "필터"
-        
-        let picker = YPImagePicker(configuration: config)
-        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
-            window.rootViewController?.present(picker, animated: true, completion: nil)
-        }
-        
-        picker.didFinishPicking { [unowned picker] items, cancelled in
-            if cancelled {
-                picker.dismiss(animated: true, completion: nil)
-            }
-            if let photo = items.singlePhoto {
-                self.profileImageView.image = photo.image
-            }
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-    
     private func deleteImage() {
         let controller = FourthAddProfileImageController()
         navigationController?.setViewControllers([controller], animated: true)
+    }
+}
+
+// MARK: - YPImagePicker
+
+extension fifthProfileImageController {
+    private func configurePicker() {
+        pickerConfig.library.maxNumberOfItems = 1
+        pickerConfig.wordings.libraryTitle = "갤러리"
+        pickerConfig.wordings.cameraTitle = "카메라"
+        pickerConfig.wordings.next = "다음"
+        pickerConfig.wordings.cancel = "취소"
+        pickerConfig.wordings.filter = "필터"
+    }
+    
+    private func openPhotoLibrary() {
+        pickerConfig.library.mediaType = .photo
+        pickerConfig.startOnScreen = YPPickerScreen.library
+        pickerConfig.screens = [.library]
+        
+        handleYPImagePicker()
+    }
+    
+    private func openCamera() {
+        pickerConfig.library.mediaType = .photo
+        pickerConfig.startOnScreen = YPPickerScreen.photo
+        pickerConfig.screens = [.photo]
+        
+        handleYPImagePicker()
+    }
+
+    private func handleYPImagePicker() {
+        let picker = YPImagePicker(configuration: pickerConfig)
+        if let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).first?.windows.first(where: { $0.isKeyWindow }) {
+            window.rootViewController?.present(picker, animated: true, completion: nil)
+        }
+        
+        picker.didFinishPicking { [unowned picker] items, cancelled in
+            if cancelled {
+                picker.dismiss(animated: true, completion: nil)
+            }
+            if let photo = items.singlePhoto {
+                self.profileImage = photo.image
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
 }
