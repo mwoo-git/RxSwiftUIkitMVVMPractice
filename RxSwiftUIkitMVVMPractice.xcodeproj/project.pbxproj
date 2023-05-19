@@ -66,6 +66,8 @@
 		737DEF5E2A025097008C8EE0 /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF5D2A025097008C8EE0 /* EditProfileHeader.swift */; };
 		737DEF602A025983008C8EE0 /* EditProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737DEF5F2A025983008C8EE0 /* EditProfileCell.swift */; };
 		99A05B760CF7AD4388DCB2B8 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 475A5F4022ACCC2962B31E11 /* Pods_RxSwiftUIkitMVVMPracticeTests.framework */; };
+		CE1870852A17A4E90056AD52 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1870842A17A4E90056AD52 /* UserService.swift */; };
+		CE1870872A17A5F00056AD52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1870862A17A5F00056AD52 /* Constants.swift */; };
 		CEF3B8BF2A128E70001452F2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */; };
 		CEF3B8C32A128ECD001452F2 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C22A128ECD001452F2 /* ApiKey.swift */; };
 		CEF3B8C52A13A852001452F2 /* FourthAddProfileImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF3B8C42A13A852001452F2 /* FourthAddProfileImageController.swift */; };
@@ -154,6 +156,8 @@
 		8A3C5F49225026F06F928E8A /* Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.debug.xcconfig"; sourceTree = "<group>"; };
 		97A3DBFCF8A0AF6DD95753EF /* Pods-RxSwiftUIkitMVVMPractice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice/Pods-RxSwiftUIkitMVVMPractice.release.xcconfig"; sourceTree = "<group>"; };
 		9B6BA3153C86FE2E09D593FE /* Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; path = "Target Support Files/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests/Pods-RxSwiftUIkitMVVMPractice-RxSwiftUIkitMVVMPracticeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CE1870842A17A4E90056AD52 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		CE1870862A17A5F00056AD52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CE508362FCF79090B579111F /* Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxSwiftUIkitMVVMPractice_RxSwiftUIkitMVVMPracticeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF3B8BE2A128E70001452F2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CEF3B8C22A128ECD001452F2 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 				737DEF3929FBBA7C008C8EE0 /* AuthService.swift */,
 				737DEF3E29FBF256008C8EE0 /* FirebaseService.swift */,
 				7364E41B2A0CDD85002C9F26 /* ImageUploader.swift */,
+				CE1870842A17A4E90056AD52 /* UserService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 			isa = PBXGroup;
 			children = (
 				7364E4282A0D4405002C9F26 /* ValidateSevice.swift */,
+				CE1870862A17A5F00056AD52 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -858,6 +864,8 @@
 				7312418729DD63EB0032F6F8 /* SceneDelegate.swift in Sources */,
 				736AE06629F3C4E5003FC7D1 /* ProfileHeaderViewModel.swift in Sources */,
 				737DEF3829FBAC7A008C8EE0 /* SigninViewModel.swift in Sources */,
+				CE1870872A17A5F00056AD52 /* Constants.swift in Sources */,
+				CE1870852A17A4E90056AD52 /* UserService.swift in Sources */,
 				7364E40E2A07B6CB002C9F26 /* EditUserNameController.swift in Sources */,
 				7364E4262A0D144B002C9F26 /* SecondUsernameController.swift in Sources */,
 				737DEF3D29FBE6C2008C8EE0 /* UITableViewController.swift in Sources */,
