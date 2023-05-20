@@ -11,6 +11,11 @@ import FirebaseFirestore
 struct AuthCredentials {
     let name: String
     let username: String
+    let email: String
+}
+
+enum AuthError: Error {
+    case fetchEmailFailed
 }
 
 struct AuthService {
@@ -46,12 +51,21 @@ struct AuthService {
     
     static func registerUser(withCredential credentials: AuthCredentials) async throws {
         do {
-            guard let uid = Auth.auth().currentUser?.uid else { return print("DEBUG: 유저 아이디 없음") }
-            let data: [String: Any] = ["name": credentials.name, "username": credentials.username, "uid": uid]
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            let data: [String: Any] = ["name": credentials.name, "username": credentials.username, "uid": uid, "email": credentials.email]
             try await Firestore.firestore().collection("users").document(uid).setData(data)
         } catch {
             print("DEBUG: AuthService.registerUser(withCredential) failed.")
             throw error
+        }
+    }
+    
+    static func fetchEmail() async throws -> String {
+        do {
+            guard let email = Auth.auth().currentUser?.email else { throw AuthError.fetchEmailFailed }
+            return email
+        } catch {
+            print("DEBUG: AuthService.fetchEmail() failed.")
         }
     }
 }

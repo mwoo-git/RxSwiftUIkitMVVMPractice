@@ -297,7 +297,8 @@ class ThirdAgreementController: UIViewController {
                 agreeButton.setTitle(nil, for: .normal)
                 activityIndicator.isHidden = false
                 agreeButton.isEnabled = false
-                let credentials = AuthCredentials(name: name, username: username)
+                let email = try await AuthService.fetchEmail()
+                let credentials = AuthCredentials(name: name, username: username, email: email)
                 try await AuthService.registerUser(withCredential: credentials)
                 let controller = FourthAddProfileImageController()
                 navigationController?.setViewControllers([controller], animated: true)
