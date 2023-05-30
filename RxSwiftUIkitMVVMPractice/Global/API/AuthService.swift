@@ -66,6 +66,7 @@ struct AuthService {
             return email
         } catch {
             print("DEBUG: AuthService.fetchEmail() failed.")
+            throw AuthError.fetchEmailFailed
         }
     }
 }

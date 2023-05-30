@@ -15,7 +15,19 @@ class ProfileController: UITableViewController {
     
     // MARK: - Properties
     
-    var vm = ProfileViewModel()
+    private let vm = ProfileViewModel()
+    
+    private var user: CGUser
+    
+    init(user: CGUser) {
+        self.user = user
+        super.init(style: .insetGrouped)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     // MARK: - Lifecycle
     
@@ -55,7 +67,6 @@ class ProfileController: UITableViewController {
         do {
             try Auth.auth().signOut()
             let controller = SigninController()
-            controller.delegate = self.tabBarController as? MainTabController
             let nav = UINavigationController(rootViewController: controller)
             nav.modalPresentationStyle = .fullScreen
             self.present(nav, animated: true, completion: nil)
@@ -107,7 +118,8 @@ extension ProfileController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 0 else { return nil }
         
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerIdentifier)
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerIdentifier) as! ProfileHeader
+        header.vm = ProfileHeaderViewModel(user: user)
         return header
     }
     

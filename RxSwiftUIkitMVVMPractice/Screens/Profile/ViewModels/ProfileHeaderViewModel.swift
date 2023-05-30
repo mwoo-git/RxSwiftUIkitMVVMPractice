@@ -7,6 +7,26 @@
 
 import Foundation
 
-class ProfileHeaderViewModel {
+struct ProfileHeaderViewModel {
+    let user: CGUser
     
+    var name: String {
+        return user.name
+    }
+    
+    var username: String {
+        return user.username
+    }
+    
+    var email: String {
+        return user.email
+    }
+    
+    var profileImageUrl: URL? {
+        return URL(string: user.profileImageUrl)
+    }
+    
+    init(user: CGUser) {
+        self.user = user
+    }
 }

@@ -20,29 +20,25 @@ class ProfileHeader: UITableViewHeaderFooterView {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.backgroundColor = .lightGray
-        iv.image = UIImage(named: "venom-7")
         return iv
     }()
     
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.text = "Woo"
         return label
     }()
     
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "hanulbom@gmail.com"
         label.textColor = .lightGray
         return label
     }()
     
-    private let userIdLabel: UILabel = {
+    private let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "@minwoo_smile"
         label.textColor = .lightGray
         return label
     }()
@@ -71,7 +67,7 @@ class ProfileHeader: UITableViewHeaderFooterView {
         nameLabel.centerX(inView: self)
         nameLabel.anchor(top: profileImageView.bottomAnchor, paddingTop: 12)
         
-        let stack = UIStackView(arrangedSubviews: [emailLabel, userIdLabel])
+        let stack = UIStackView(arrangedSubviews: [emailLabel, usernameLabel])
         stack.axis = .horizontal
         stack.spacing = 4
         
@@ -81,7 +77,11 @@ class ProfileHeader: UITableViewHeaderFooterView {
     }
     
     func configure() {
-        
+        guard let vm = vm else { return }
+        profileImageView.sd_setImage(with: vm.profileImageUrl)
+        nameLabel.text = vm.name
+        usernameLabel.text = vm.username
+        emailLabel.text = vm.email
     }
     
     // MARK: - Actions

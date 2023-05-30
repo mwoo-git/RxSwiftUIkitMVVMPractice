@@ -88,9 +88,14 @@ class SigninController: UIViewController {
                     let controller = FirstNameController()
                     self?.navigationController?.pushViewController(controller, animated: true)
                 case .didAlreadySignIn:
-                    self?.delegate?.authenticationComlete()
-                    self?.dismiss(animated: true, completion: nil)
-                    
+                    Task {
+                        do {
+                            try await AuthManager.shared.updateUser()
+                            self?.dismiss(animated: true, completion: nil)
+                        } catch {
+                            print("DEBUG: 로그인 할 수 없습니다.")
+                        }
+                    }
                 case .didFailToSignIn(let error):
                     print("DEBUG: Failed sign in user \(error.localizedDescription)")
                 }
